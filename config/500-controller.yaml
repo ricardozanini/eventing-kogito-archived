@@ -15,19 +15,19 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: sample-source-controller
-  namespace: knative-samples
+  name: kogito-source-controller
+  namespace: knative-kogito
   labels:
     samples.knative.dev/release: devel
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: sample-source-controller
+      app: kogito-source-controller
   template:
     metadata:
       labels:
-        app: sample-source-controller
+        app: kogito-source-controller
         samples.knative.dev/release: devel
     spec:
       # To avoid node becoming SPOF, spread our replicas to different nodes.
@@ -37,16 +37,16 @@ spec:
           - podAffinityTerm:
               labelSelector:
                 matchLabels:
-                  app: sample-source-controller
+                  app: kogito-source-controller
               topologyKey: kubernetes.io/hostname
             weight: 100
 
-      serviceAccountName: sample-source-controller
+      serviceAccountName: kogito-source-controller
 
       containers:
       - name: controller
         terminationMessagePolicy: FallbackToLogsOnError
-        image: ko://knative.dev/sample-source/cmd/controller
+        image: ko://knative.dev/kogito-source/cmd/controller
 
         resources:
           requests:
@@ -65,7 +65,7 @@ spec:
           - name: METRICS_DOMAIN
             value: knative.dev/sources
           - name: SAMPLE_SOURCE_RA_IMAGE
-            value: ko://knative.dev/sample-source/cmd/receive_adapter
+            value: ko://knative.dev/kogito-source/cmd/receive_adapter
           - name: POD_NAME
             valueFrom:
               fieldRef:

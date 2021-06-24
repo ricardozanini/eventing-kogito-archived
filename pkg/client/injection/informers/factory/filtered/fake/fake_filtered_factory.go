@@ -1,5 +1,5 @@
 /*
-Copyright 2020 The Knative Authors
+Copyright 2021 The Knative Authors
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -22,12 +22,12 @@ import (
 	context "context"
 
 	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+	externalversions "knative.dev/eventing-kogito/pkg/client/informers/externalversions"
+	fake "knative.dev/eventing-kogito/pkg/client/injection/client/fake"
+	filtered "knative.dev/eventing-kogito/pkg/client/injection/informers/factory/filtered"
 	controller "knative.dev/pkg/controller"
 	injection "knative.dev/pkg/injection"
 	logging "knative.dev/pkg/logging"
-	externalversions "knative.dev/sample-source/pkg/client/informers/externalversions"
-	fake "knative.dev/sample-source/pkg/client/injection/client/fake"
-	filtered "knative.dev/sample-source/pkg/client/injection/informers/factory/filtered"
 )
 
 var Get = filtered.Get

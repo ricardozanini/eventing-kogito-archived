@@ -24,9 +24,9 @@ metadata:
       [
         { "type": "dev.knative.sample" }
       ]
-  name: samplesources.samples.knative.dev
+  name: samplesources.kogito.knative.dev
 spec:
-  group: samples.knative.dev
+  group: kogito.knative.dev
   versions:
     - &version
       name: v1alpha1

@@ -46,7 +46,7 @@ export PATH="${PATH}:${GOPATH}/bin"
 ### Checkout your fork
 
 The Go tools require that you clone the repository to the
-`src/knative.dev/sample-source` directory in your
+`src/knative.dev/eventing-kogito` directory in your
 [`GOPATH`](https://github.com/golang/go/wiki/SettingGOPATH).
 
 To check out this repository:
@@ -59,8 +59,8 @@ To check out this repository:
 ```shell
 mkdir -p ${GOPATH}/src/knative.dev
 cd ${GOPATH}/src/knative.dev
-git clone git@github.com:${YOUR_GITHUB_USERNAME}/sample-source.git
-cd sample-source
+git clone git@github.com:${YOUR_GITHUB_USERNAME}/kogito-source.git
+cd kogito-source
 git remote add upstream https://github.com/knative/sample-source.git
 git remote set-url --push upstream no_push
 ```

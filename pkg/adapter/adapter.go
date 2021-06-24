@@ -11,7 +11,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-// Package adapter implements a sample receive adapter that generates events
+// Package adapter implements a kogito receive adapter that generates events
 // at a regular interval.
 package adapter
 
@@ -52,8 +52,8 @@ type dataExample struct {
 
 func (a *Adapter) newEvent() cloudevents.Event {
 	event := cloudevents.NewEvent()
-	event.SetType("dev.knative.sample")
-	event.SetSource("sample.knative.dev/heartbeat-source")
+	event.SetType("dev.knative.kogito")
+	event.SetSource("kogito.knative.dev/heartbeat-source")
 
 	if err := event.SetData(cloudevents.ApplicationJSON, &dataExample{
 		Sequence:  a.nextID,

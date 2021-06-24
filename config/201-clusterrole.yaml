@@ -15,7 +15,7 @@
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
-  name: sample-source-controller
+  name: kogito-source-controller
   labels:
     samples.knative.dev/release: devel
 rules:
@@ -46,13 +46,13 @@ rules:
   verbs: *everything
 
 - apiGroups:
-  - samples.knative.dev
+  - kogito.knative.dev
   resources:
   - samplesources
   verbs: *everything
 
 - apiGroups:
-  - samples.knative.dev
+  - kogito.knative.dev
   resources:
   - samplesources/status
   - samplesources/finalizers
@@ -84,7 +84,7 @@ rules:
 kind: ClusterRole
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
-  name: sample-source-observer
+  name: kogito-source-observer
   labels:
     samples.knative.dev/release: devel
     duck.knative.dev/source: "true"

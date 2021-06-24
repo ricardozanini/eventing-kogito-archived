@@ -15,13 +15,13 @@
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
-  name: sample-source-webhook
+  name: kogito-source-webhook
   labels:
     samples.knative.dev/release: devel
 rules:
   # Sources admin
   - apiGroups:
-      - samples.knative.dev
+      - kogito.knative.dev
     resources:
       - samplesources
     verbs: &everything
@@ -35,14 +35,14 @@ rules:
 
   # Sources finalizer
   - apiGroups:
-      - samples.knative.dev
+      - kogito.knative.dev
     resources:
       - samplesources/finalizers
     verbs: *everything
 
   # Source statuses update
   - apiGroups:
-      - samples.knative.dev
+      - kogito.knative.dev
     resources:
       - samplesources/status
     verbs:

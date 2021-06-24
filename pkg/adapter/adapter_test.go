@@ -55,7 +55,7 @@ func TestAdapter(t *testing.T) {
 func verify(t *testing.T, received chan cloudevents.Event) {
 	for _, id := range []int{0, 1, 2} {
 		e := <-received
-		assert.Equal(t, "dev.knative.sample", e.Type())
+		assert.Equal(t, "dev.knative.kogito", e.Type())
 		//m := map[string]json.RawMessage{}
 		m := &dataExample{}
 		assert.NoError(t, e.DataAs(&m))
@@ -69,7 +69,7 @@ func TestAdapterMain(t *testing.T) {
 	// environment var t.Name() is set to "main"
 	// (see https://talks.golang.org/2014/testing.slide#23)
 	if os.Getenv(t.Name()) == "main" {
-		adapter.Main("sample-source", NewEnv, NewAdapter)
+		adapter.Main("kogito-source", NewEnv, NewAdapter)
 		return
 	}
 

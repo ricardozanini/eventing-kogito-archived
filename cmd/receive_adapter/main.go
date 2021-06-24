@@ -16,9 +16,9 @@ package main
 
 import (
 	"knative.dev/eventing/pkg/adapter/v2"
-	myadapter "knative.dev/sample-source/pkg/adapter"
+	myadapter "knative.dev/eventing-kogito/pkg/adapter"
 )
 
 func main() {
-	adapter.Main("sample-source", myadapter.NewEnv, myadapter.NewAdapter)
+	adapter.Main("kogito-source", myadapter.NewEnv, myadapter.NewAdapter)
 }

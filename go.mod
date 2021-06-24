@@ -1,4 +1,4 @@
-module knative.dev/sample-source
+module knative.dev/eventing-kogito
 
 go 1.14
 

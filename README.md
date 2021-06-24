@@ -1,6 +1,6 @@
 # Knative Eventing Sample Source
 
-[![GoDoc](https://godoc.org/knative.dev/sample-source?status.svg)](https://godoc.org/knative.dev/sample-source)
+[![GoDoc](https://godoc.org/knative.dev/eventing-kogito?status.svg)](https://godoc.org/knative.dev/eventing-kogito)
 [![Go Report Card](https://goreportcard.com/badge/knative/sample-source)](https://goreportcard.com/report/knative/sample-source)
 
 Knative Eventing `sample-source` defines a simple source that transforms events

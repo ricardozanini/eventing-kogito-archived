@@ -1,5 +1,5 @@
 /*
-Copyright 2020 The Knative Authors
+Copyright 2021 The Knative Authors
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -23,10 +23,10 @@ import (
 
 	runtime "k8s.io/apimachinery/pkg/runtime"
 	rest "k8s.io/client-go/rest"
+	fake "knative.dev/eventing-kogito/pkg/client/clientset/versioned/fake"
+	client "knative.dev/eventing-kogito/pkg/client/injection/client"
 	injection "knative.dev/pkg/injection"
 	logging "knative.dev/pkg/logging"
-	fake "knative.dev/sample-source/pkg/client/clientset/versioned/fake"
-	client "knative.dev/sample-source/pkg/client/injection/client"
 )
 
 func init() {
@@ -51,7 +51,7 @@ func Get(ctx context.Context) *fake.Clientset {
 	untyped := ctx.Value(client.Key{})
 	if untyped == nil {
 		logging.FromContext(ctx).Panic(
-			"Unable to fetch knative.dev/sample-source/pkg/client/clientset/versioned/fake.Clientset from context.")
+			"Unable to fetch knative.dev/eventing-kogito/pkg/client/clientset/versioned/fake.Clientset from context.")
 	}
 	return untyped.(*fake.Clientset)
 }
