@@ -27,7 +27,7 @@ import (
 	"knative.dev/pkg/apis"
 )
 
-func TestSampleSourceValidation(t *testing.T) {
+func TestKogitoSourceValidation(t *testing.T) {
 	testCases := map[string]struct {
 		cr   resourcesemantics.GenericCRD
 		want *apis.FieldError

@@ -18,4 +18,4 @@ metadata:
   name: knative-kogito
   labels:
     istio-injection: enabled
-    samples.knative.dev/release: devel
+    kogito.knative.dev/release: devel

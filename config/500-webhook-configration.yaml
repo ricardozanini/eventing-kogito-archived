@@ -16,7 +16,7 @@ kind: MutatingWebhookConfiguration
 metadata:
   name: defaulting.webhook.knative-kogito.knative.dev
   labels:
-    samples.knative.dev/release: devel
+    kogito.knative.dev/release: devel
 webhooks:
   - admissionReviewVersions: ["v1", "v1beta1"]
     clientConfig:
@@ -32,7 +32,7 @@ kind: ValidatingWebhookConfiguration
 metadata:
   name: validation.webhook.knative-kogito.knative.dev
   labels:
-    samples.knative.dev/release: devel
+    kogito.knative.dev/release: devel
 webhooks:
   - admissionReviewVersions: ["v1", "v1beta1"]
     clientConfig:
@@ -48,7 +48,7 @@ kind: ValidatingWebhookConfiguration
 metadata:
   name: config.webhook.knative-kogito.knative.dev
   labels:
-    samples.knative.dev/release: devel
+    kogito.knative.dev/release: devel
 webhooks:
   - admissionReviewVersions: ["v1", "v1beta1"]
     clientConfig:
@@ -69,5 +69,5 @@ metadata:
   name: webhook-certs
   namespace: knative-kogito
   labels:
-    samples.knative.dev/release: devel
+    kogito.knative.dev/release: devel
 # The data is populated at install time.

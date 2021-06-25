@@ -26,7 +26,7 @@ import (
 	"github.com/google/go-cmp/cmp"
 )
 
-func TestSampleSourceDefaults(t *testing.T) {
+func TestKogitoSourceDefaults(t *testing.T) {
 	testCases := map[string]struct {
 		initial  KogitoSource
 		expected KogitoSource

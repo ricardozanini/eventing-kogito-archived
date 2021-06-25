@@ -17,7 +17,7 @@ kind: ClusterRoleBinding
 metadata:
   name: kogito-source-controller-rolebinding
   labels:
-    samples.knative.dev/release: devel
+    kogito.knative.dev/release: devel
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
@@ -34,7 +34,7 @@ kind: ClusterRoleBinding
 metadata:
   name: kogito-source-webhook-rolebinding
   labels:
-    samples.knative.dev/release: devel
+    kogito.knative.dev/release: devel
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
@@ -51,7 +51,7 @@ kind: ClusterRoleBinding
 metadata:
   name: kogito-source-controller-addressable-resolver
   labels:
-    samples.knative.dev/release: devel
+    kogito.knative.dev/release: devel
 subjects:
 - kind: ServiceAccount
   name: kogito-source-controller
