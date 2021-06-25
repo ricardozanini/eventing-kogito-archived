@@ -33,10 +33,10 @@ import (
 
 	"knative.dev/eventing-kogito/pkg/reconciler"
 
+	kogitosourceinformer "knative.dev/eventing-kogito/pkg/client/injection/informers/kogito/v1alpha1/kogitosource"
+	"knative.dev/eventing-kogito/pkg/client/injection/reconciler/kogito/v1alpha1/kogitosource"
 	kubeclient "knative.dev/pkg/client/injection/kube/client"
 	deploymentinformer "knative.dev/pkg/client/injection/kube/informers/apps/v1/deployment"
-	samplesourceinformer "knative.dev/eventing-kogito/pkg/client/injection/informers/kogito/v1alpha1/kogitosource"
-	"knative.dev/eventing-kogito/pkg/client/injection/reconciler/kogito/v1alpha1/kogitosource"
 )
 
 // NewController initializes the controller and is called by the generated code
@@ -46,7 +46,7 @@ func NewController(
 	cmw configmap.Watcher,
 ) *controller.Impl {
 	deploymentInformer := deploymentinformer.Get(ctx)
-	sampleSourceInformer := samplesourceinformer.Get(ctx)
+	kogitoSourceInformer := kogitosourceinformer.Get(ctx)
 
 	r := &Reconciler{
 		dr: &reconciler.DeploymentReconciler{KubeClientSet: kubeclient.Get(ctx)},
@@ -63,7 +63,7 @@ func NewController(
 
 	logging.FromContext(ctx).Info("Setting up event handlers")
 
-	sampleSourceInformer.Informer().AddEventHandler(controller.HandleAll(impl.Enqueue))
+	kogitoSourceInformer.Informer().AddEventHandler(controller.HandleAll(impl.Enqueue))
 
 	deploymentInformer.Informer().AddEventHandler(cache.FilteringResourceEventHandler{
 		FilterFunc: controller.FilterControllerGK(v1alpha1.Kind("KogitoSource")),

@@ -32,7 +32,7 @@ import (
 	reconcilersource "knative.dev/eventing/pkg/reconciler/source"
 
 	"knative.dev/eventing-kogito/pkg/apis/kogito/v1alpha1"
-	reconcilersamplesource "knative.dev/eventing-kogito/pkg/client/injection/reconciler/kogito/v1alpha1/kogitosource"
+	reconcilerkogitosource "knative.dev/eventing-kogito/pkg/client/injection/reconciler/kogito/v1alpha1/kogitosource"
 	"knative.dev/eventing-kogito/pkg/reconciler"
 	"knative.dev/eventing-kogito/pkg/reconciler/kogito/resources"
 )
@@ -49,7 +49,7 @@ type Reconciler struct {
 }
 
 // Check that our Reconciler implements Interface
-var _ reconcilersamplesource.Interface = (*Reconciler)(nil)
+var _ reconcilerkogitosource.Interface = (*Reconciler)(nil)
 
 // ReconcileKind implements Interface.ReconcileKind.
 func (r *Reconciler) ReconcileKind(ctx context.Context, src *v1alpha1.KogitoSource) pkgreconciler.Event {

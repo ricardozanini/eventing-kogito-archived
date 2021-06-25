@@ -47,7 +47,7 @@ type DeploymentReconciler struct {
 	KubeClientSet kubernetes.Interface
 }
 
-// ReconcileDeployment reconciles deployment resource for SampleSource
+// ReconcileDeployment reconciles deployment resource for KogitoSource
 func (r *DeploymentReconciler) ReconcileDeployment(
 	ctx context.Context,
 	owner kmeta.OwnerRefable,
