@@ -18,8 +18,6 @@ package v1alpha1
 
 import (
 	"context"
-	"time"
-
 	"knative.dev/pkg/apis"
 )
 
@@ -42,11 +40,6 @@ func (sspec *KogitoSourceSpec) Validate(ctx context.Context) *apis.FieldError {
 	//example: validation for sink field.
 	if fe := sspec.Sink.Validate(ctx); fe != nil {
 		errs = errs.Also(fe.ViaField("sink"))
-	}
-
-	//example: validation for interval field.
-	if _, fe := time.ParseDuration(sspec.Interval); fe != nil {
-		errs = errs.Also(apis.ErrInvalidValue(fe, "interval"))
 	}
 
 	//example: validation for serviceAccountName field.

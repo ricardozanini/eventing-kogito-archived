@@ -31,11 +31,6 @@ func (s *KogitoSource) SetDefaults(ctx context.Context) {
 		s.Spec.ServiceAccountName = "default"
 	}
 
-	//example: If Interval is unspecified, default to "10s".
-	if s != nil && s.Spec.Interval == "" {
-		s.Spec.Interval = "10s"
-	}
-
 	// call SetDefaults against duckv1.Destination with a context of ObjectMeta of KogitoSource.
 	withNS := apis.WithinParent(ctx, s.ObjectMeta)
 	s.Spec.Sink.SetDefaults(withNS)

@@ -36,7 +36,6 @@ func TestKogitoSourceDefaults(t *testing.T) {
 			expected: KogitoSource{
 				Spec: KogitoSourceSpec{
 					ServiceAccountName: "default",
-					Interval:           "10s",
 				},
 			},
 		},
@@ -47,7 +46,6 @@ func TestKogitoSourceDefaults(t *testing.T) {
 				},
 				Spec: KogitoSourceSpec{
 					ServiceAccountName: "default",
-					Interval:           "10s",
 					SourceSpec: duckv1.SourceSpec{
 						Sink: duckv1.Destination{
 							Ref: &duckv1.KReference{},
@@ -61,7 +59,6 @@ func TestKogitoSourceDefaults(t *testing.T) {
 				},
 				Spec: KogitoSourceSpec{
 					ServiceAccountName: "default",
-					Interval:           "10s",
 					SourceSpec: duckv1.SourceSpec{
 						Sink: duckv1.Destination{
 							Ref: &duckv1.KReference{

@@ -82,9 +82,6 @@ func makeEnv(eventSource string, spec *v1alpha1.KogitoSourceSpec) []corev1.EnvVa
 		Name:  "EVENT_SOURCE",
 		Value: eventSource,
 	}, {
-		Name:  "INTERVAL",
-		Value: spec.Interval,
-	}, {
 		Name: "NAMESPACE",
 		ValueFrom: &corev1.EnvVarSource{
 			FieldRef: &corev1.ObjectFieldSelector{

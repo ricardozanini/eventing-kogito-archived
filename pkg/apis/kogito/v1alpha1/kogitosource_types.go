@@ -25,6 +25,8 @@ import (
 	duckv1 "knative.dev/pkg/apis/duck/v1"
 	"knative.dev/pkg/kmeta"
 	"knative.dev/pkg/webhook/resourcesemantics"
+
+	kogitov1beta1 "github.com/kiegroup/kogito-operator/api/v1beta1"
 )
 
 // +genclient
@@ -80,13 +82,14 @@ type KogitoSourceSpec struct {
 	// +optional
 	ServiceAccountName string `json:"serviceAccountName,omitempty"`
 
-	// Interval is the time interval between events.
-	//
-	// The string format is a sequence of decimal numbers, each with optional
-	// fraction and a unit suffix, such as "300ms", "-1.5h" or "2h45m". Valid time
-	// units are "ns", "us" (or "µs"), "ms", "s", "m", "h". If unspecified
-	// this will default to "10s".
-	Interval string `json:"interval"`
+	// Template is the KogitoRuntime definition that deployed by this source
+	Template KogitoRuntimeTemplate `json:"template"`
+}
+
+
+// KogitoRuntimeTemplate template for a KogitoRuntime service
+type KogitoRuntimeTemplate struct {
+	kogitov1beta1.KogitoRuntimeSpec
 }
 
 const (

@@ -18,11 +18,9 @@ package v1alpha1
 
 import (
 	"context"
-	"testing"
-	"time"
-
 	"github.com/google/go-cmp/cmp"
 	"knative.dev/pkg/webhook/resourcesemantics"
+	"testing"
 
 	"knative.dev/pkg/apis"
 )
@@ -42,11 +40,6 @@ func TestKogitoSourceValidation(t *testing.T) {
 				feSink := apis.ErrGeneric("expected at least one, got none", "ref", "uri")
 				feSink = feSink.ViaField("sink").ViaField("spec")
 				errs = errs.Also(feSink)
-
-				_, timeErr := time.ParseDuration("")
-				feInterval := apis.ErrInvalidValue(timeErr, "interval")
-				feInterval = feInterval.ViaField("spec")
-				errs = errs.Also(feInterval)
 
 				feServiceAccountName := apis.ErrMissingField("serviceAccountName")
 				feServiceAccountName = feServiceAccountName.ViaField("spec")
