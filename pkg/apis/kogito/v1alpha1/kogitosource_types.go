@@ -25,8 +25,6 @@ import (
 	duckv1 "knative.dev/pkg/apis/duck/v1"
 	"knative.dev/pkg/kmeta"
 	"knative.dev/pkg/webhook/resourcesemantics"
-
-	kogitov1beta1 "github.com/kiegroup/kogito-operator/api/v1beta1"
 )
 
 // +genclient
@@ -86,10 +84,9 @@ type KogitoSourceSpec struct {
 	Template KogitoRuntimeTemplate `json:"template"`
 }
 
-
 // KogitoRuntimeTemplate template for a KogitoRuntime service
 type KogitoRuntimeTemplate struct {
-	kogitov1beta1.KogitoRuntimeSpec
+	Image string `json:"image"`
 }
 
 const (
