@@ -27,14 +27,12 @@ You must install these tools:
 
 ### Environment setup
 
-To get started you'll need to set these environment variables (we recommend
-adding them to your `.bashrc`):
+To get started you'll need to set these environment variables (we recommend adding them to your `.bashrc`):
 
 1. `GOPATH`: If you don't have one, simply pick a directory and add
    `export GOPATH=...`
 
-1. `$GOPATH/bin` on `PATH`: This is so that tooling installed via `go get` will
-   work properly.
+1. `$GOPATH/bin` on `PATH`: This is so that tooling installed via `go get` will work properly.
 
 `.bashrc` example:
 
@@ -68,5 +66,4 @@ git remote set-url --push upstream no_push
 _Adding the `upstream` remote sets you up nicely for regularly
 [syncing your fork](https://help.github.com/articles/syncing-a-fork/)._
 
-Once you reach this point you are ready to do a full build and deploy as
-described below.
+Once you reach this point you are ready to do a full build and deploy as described below.

@@ -18,7 +18,7 @@ metadata:
   labels:
     kogito.knative.dev/release: devel
 webhooks:
-  - admissionReviewVersions: ["v1", "v1beta1"]
+  - admissionReviewVersions: [ "v1", "v1beta1" ]
     clientConfig:
       service:
         name: kogito-source-webhook
@@ -34,7 +34,7 @@ metadata:
   labels:
     kogito.knative.dev/release: devel
 webhooks:
-  - admissionReviewVersions: ["v1", "v1beta1"]
+  - admissionReviewVersions: [ "v1", "v1beta1" ]
     clientConfig:
       service:
         name: kogito-source-webhook
@@ -50,7 +50,7 @@ metadata:
   labels:
     kogito.knative.dev/release: devel
 webhooks:
-  - admissionReviewVersions: ["v1", "v1beta1"]
+  - admissionReviewVersions: [ "v1", "v1beta1" ]
     clientConfig:
       service:
         name: kogito-source-webhook

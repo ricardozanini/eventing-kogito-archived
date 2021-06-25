@@ -19,64 +19,64 @@ metadata:
   labels:
     kogito.knative.dev/release: devel
 rules:
-- apiGroups:
-  - apps
-  resources:
-  - deployments
-  verbs: &everything
-  - get
-  - list
-  - watch
-  - create
-  - update
-  - patch
-  - delete
+  - apiGroups:
+      - apps
+    resources:
+      - deployments
+    verbs: &everything
+      - get
+      - list
+      - watch
+      - create
+      - update
+      - patch
+      - delete
 
-- apiGroups:
-  - rbac.authorization.k8s.io
-  resources:
-  - clusterroles
-  verbs:
-  - list
+  - apiGroups:
+      - rbac.authorization.k8s.io
+    resources:
+      - clusterroles
+    verbs:
+      - list
 
-- apiGroups:
-  - ""
-  resources:
-  - events
-  verbs: *everything
+  - apiGroups:
+      - ""
+    resources:
+      - events
+    verbs: *everything
 
-- apiGroups:
-  - kogito.knative.dev
-  resources:
-  - kogitosources
-  verbs: *everything
+  - apiGroups:
+      - kogito.knative.dev
+    resources:
+      - kogitosources
+    verbs: *everything
 
-- apiGroups:
-  - kogito.knative.dev
-  resources:
-  - kogitosources/status
-  - kogitosources/finalizers
-  verbs:
-  - get
-  - update
-  - patch
+  - apiGroups:
+      - kogito.knative.dev
+    resources:
+      - kogitosources/status
+      - kogitosources/finalizers
+    verbs:
+      - get
+      - update
+      - patch
 
-- apiGroups:
-  - ""
-  resources:
-  - secrets
-  - configmaps
-  verbs:
-  - get
-  - list
-  - watch
+  - apiGroups:
+      - ""
+    resources:
+      - secrets
+      - configmaps
+    verbs:
+      - get
+      - list
+      - watch
 
-  # For Leader Election
-- apiGroups:
-    - coordination.k8s.io
-  resources:
-    - leases
-  verbs: *everything
+    # For Leader Election
+  - apiGroups:
+      - coordination.k8s.io
+    resources:
+      - leases
+    verbs: *everything
 
 ---
 # The role is needed for the aggregated role source-observer in knative-eventing to provide readonly access to "Sources".

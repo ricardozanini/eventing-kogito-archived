@@ -23,9 +23,9 @@ roleRef:
   kind: ClusterRole
   name: kogito-source-controller
 subjects:
-- kind: ServiceAccount
-  name: kogito-source-controller
-  namespace: knative-kogito
+  - kind: ServiceAccount
+    name: kogito-source-controller
+    namespace: knative-kogito
 
 ---
 
@@ -53,9 +53,9 @@ metadata:
   labels:
     kogito.knative.dev/release: devel
 subjects:
-- kind: ServiceAccount
-  name: kogito-source-controller
-  namespace: knative-kogito
+  - kind: ServiceAccount
+    name: kogito-source-controller
+    namespace: knative-kogito
 # An aggregated ClusterRole for all Addressable CRDs.
 # Ref: https://knative.dev/eventing/blob/master/config/200-addressable-resolvers-clusterrole.yaml
 roleRef:

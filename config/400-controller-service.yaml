@@ -24,4 +24,4 @@ spec:
   selector:
     control-plane: kogito-source-controller-manager
   ports:
-  - port: 443
+    - port: 443

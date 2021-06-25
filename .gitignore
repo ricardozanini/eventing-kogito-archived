@@ -6,4 +6,4 @@ bazel-*
 *.swp
 .history
 tmp/
-github.com/
+licenses/
