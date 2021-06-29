@@ -14,5 +14,5 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-gofmt -s -w "$(find . -path './vendor' -prune -o -path './third_party' -prune -o -name '*.pb.go' -prune -o -name 'wire_gen.go' -prune -o -type f -name '*.go' -print)"
-goimports  -w "$(find . -path './vendor' -prune -o -path './third_party' -prune -o -name '*.pb.go' -prune -o -name 'wire_gen.go' -prune -o -type f -name '*.go' -print)"
+gofmt -s -w ./pkg/** ./cmd/**
+goimports -w ./pkg/** ./cmd/**

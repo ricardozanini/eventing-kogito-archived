@@ -86,7 +86,6 @@ type KogitoSourceSpec struct {
 
 // KogitoRuntimeTemplate template for a KogitoRuntime service
 type KogitoRuntimeTemplate struct {
-	Image string `json:"image"`
 }
 
 const (

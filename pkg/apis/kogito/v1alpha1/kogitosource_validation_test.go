@@ -18,9 +18,10 @@ package v1alpha1
 
 import (
 	"context"
+	"testing"
+
 	"github.com/google/go-cmp/cmp"
 	"knative.dev/pkg/webhook/resourcesemantics"
-	"testing"
 
 	"knative.dev/pkg/apis"
 )
