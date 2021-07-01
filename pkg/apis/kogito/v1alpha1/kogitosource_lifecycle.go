@@ -33,54 +33,54 @@ const (
 	KogitoConditionDeployed apis.ConditionType = "Deployed"
 )
 
-var SampleCondSet = apis.NewLivingConditionSet(
+var KogitoCondSet = apis.NewLivingConditionSet(
 	KogitoConditionSinkProvided,
 	KogitoConditionDeployed,
 )
 
 // GetCondition returns the condition currently associated with the given type, or nil.
 func (s *KogitoSourceStatus) GetCondition(t apis.ConditionType) *apis.Condition {
-	return SampleCondSet.Manage(s).GetCondition(t)
+	return KogitoCondSet.Manage(s).GetCondition(t)
 }
 
 // InitializeConditions sets relevant unset conditions to Unknown state.
 func (s *KogitoSourceStatus) InitializeConditions() {
-	SampleCondSet.Manage(s).InitializeConditions()
+	KogitoCondSet.Manage(s).InitializeConditions()
 }
 
 // GetConditionSet returns KogitoSource ConditionSet.
 func (*KogitoSource) GetConditionSet() apis.ConditionSet {
-	return SampleCondSet
+	return KogitoCondSet
 }
 
 // MarkSink sets the condition that the source has a sink configured.
 func (s *KogitoSourceStatus) MarkSink(uri *apis.URL) {
 	s.SinkURI = uri
 	if len(uri.String()) > 0 {
-		SampleCondSet.Manage(s).MarkTrue(KogitoConditionSinkProvided)
+		KogitoCondSet.Manage(s).MarkTrue(KogitoConditionSinkProvided)
 	} else {
-		SampleCondSet.Manage(s).MarkUnknown(KogitoConditionSinkProvided, "SinkEmpty", "Sink has resolved to empty.")
+		KogitoCondSet.Manage(s).MarkUnknown(KogitoConditionSinkProvided, "SinkEmpty", "Sink has resolved to empty.")
 	}
 }
 
 // MarkNoSink sets the condition that the source does not have a sink configured.
 func (s *KogitoSourceStatus) MarkNoSink(reason, messageFormat string, messageA ...interface{}) {
-	SampleCondSet.Manage(s).MarkFalse(KogitoConditionSinkProvided, reason, messageFormat, messageA...)
+	KogitoCondSet.Manage(s).MarkFalse(KogitoConditionSinkProvided, reason, messageFormat, messageA...)
 }
 
 // PropagateDeploymentAvailability uses the availability of the provided Deployment to determine if
 // KogitoConditionDeployed should be marked as true or false.
 func (s *KogitoSourceStatus) PropagateDeploymentAvailability(d *appsv1.Deployment) {
 	if duck.DeploymentIsAvailable(&d.Status, false) {
-		SampleCondSet.Manage(s).MarkTrue(KogitoConditionDeployed)
+		KogitoCondSet.Manage(s).MarkTrue(KogitoConditionDeployed)
 	} else {
 		// I don't know how to propagate the status well, so just give the name of the Deployment
 		// for now.
-		SampleCondSet.Manage(s).MarkFalse(KogitoConditionDeployed, "DeploymentUnavailable", "The Deployment '%s' is unavailable.", d.Name)
+		KogitoCondSet.Manage(s).MarkFalse(KogitoConditionDeployed, "DeploymentUnavailable", "The Deployment '%s' is unavailable.", d.Name)
 	}
 }
 
 // IsReady returns true if the resource is ready overall.
 func (s *KogitoSourceStatus) IsReady() bool {
-	return SampleCondSet.Manage(s).IsHappy()
+	return KogitoCondSet.Manage(s).IsHappy()
 }

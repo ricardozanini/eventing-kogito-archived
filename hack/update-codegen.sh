@@ -25,6 +25,17 @@ export GOFLAGS=-mod=
 
 echo "=== Update Codegen for ${MODULE_NAME}"
 
+(
+  # External Kogito API
+  OUTPUT_PKG="knative.dev/eventing-kogito/pkg/kogito/injection" \
+    VERSIONED_CLIENTSET_PKG="github.com/kiegroup/kogito-operator/client/clientset/versioned" \
+    EXTERNAL_INFORMER_PKG="github.com/kiegroup/kogito-operator/client/informers/externalversions" \
+    ${KNATIVE_CODEGEN_PKG}/hack/generate-knative.sh "injection" \
+    knative.dev/eventing-kogito/pkg/client/kogito github.com/kiegroup/kogito-operator/api \
+    ":v1beta1" \
+    --go-header-file ${REPO_ROOT_DIR}/hack/boilerplate/boilerplate.go.txt
+)
+
 group "Kubernetes Codegen"
 
 # generate the code with:

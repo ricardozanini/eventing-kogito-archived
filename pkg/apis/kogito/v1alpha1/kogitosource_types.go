@@ -17,6 +17,7 @@ limitations under the License.
 package v1alpha1
 
 import (
+	kogitoapi "github.com/kiegroup/kogito-operator/api/v1beta1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime"
 	"k8s.io/apimachinery/pkg/runtime/schema"
@@ -86,6 +87,7 @@ type KogitoSourceSpec struct {
 
 // KogitoRuntimeTemplate template for a KogitoRuntime service
 type KogitoRuntimeTemplate struct {
+	kogitoapi.KogitoRuntimeSpec
 }
 
 const (

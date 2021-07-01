@@ -18,7 +18,6 @@ package kogito
 
 import (
 	"context"
-
 	reconcilersource "knative.dev/eventing/pkg/reconciler/source"
 
 	"knative.dev/eventing-kogito/pkg/apis/kogito/v1alpha1"
@@ -35,6 +34,7 @@ import (
 
 	kogitosourceinformer "knative.dev/eventing-kogito/pkg/client/injection/informers/kogito/v1alpha1/kogitosource"
 	"knative.dev/eventing-kogito/pkg/client/injection/reconciler/kogito/v1alpha1/kogitosource"
+	kogitoruntimeinformer "knative.dev/eventing-kogito/pkg/kogito/injection/informers/factory"
 	kubeclient "knative.dev/pkg/client/injection/kube/client"
 	deploymentinformer "knative.dev/pkg/client/injection/kube/informers/apps/v1/deployment"
 )
@@ -47,6 +47,7 @@ func NewController(
 ) *controller.Impl {
 	deploymentInformer := deploymentinformer.Get(ctx)
 	kogitoSourceInformer := kogitosourceinformer.Get(ctx)
+	kogitoRuntimeInformer := kogitoruntimeinformer.Get(ctx)
 
 	r := &Reconciler{
 		dr: &reconciler.DeploymentReconciler{KubeClientSet: kubeclient.Get(ctx)},
@@ -66,6 +67,12 @@ func NewController(
 	kogitoSourceInformer.Informer().AddEventHandler(controller.HandleAll(impl.Enqueue))
 
 	deploymentInformer.Informer().AddEventHandler(cache.FilteringResourceEventHandler{
+		FilterFunc: controller.FilterControllerGK(v1alpha1.Kind("KogitoSource")),
+		Handler:    controller.HandleAll(impl.EnqueueControllerOf),
+	})
+
+	// TODO: We are unable to generate the Informers correctly for Kogito Operator since its structure follows kubebuilder: api/{version}, instead of pkg/apis/{group}/{version}. Might need to change that there to have the injection being generated correctly.
+	kogitoRuntimeInformer.App().V1beta1().KogitoRuntimes().Informer().AddEventHandler(cache.FilteringResourceEventHandler{
 		FilterFunc: controller.FilterControllerGK(v1alpha1.Kind("KogitoSource")),
 		Handler:    controller.HandleAll(impl.EnqueueControllerOf),
 	})

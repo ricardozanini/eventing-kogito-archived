@@ -103,7 +103,7 @@ github.com/go-logr/logr
 github.com/go-openapi/jsonpointer
 # github.com/go-openapi/jsonreference v0.19.5
 github.com/go-openapi/jsonreference
-# github.com/go-openapi/spec v0.19.6
+# github.com/go-openapi/spec v0.19.15
 github.com/go-openapi/spec
 # github.com/go-openapi/swag v0.19.15
 github.com/go-openapi/swag
@@ -164,6 +164,22 @@ github.com/json-iterator/go
 # github.com/kelseyhightower/envconfig v1.4.0
 ## explicit
 github.com/kelseyhightower/envconfig
+# github.com/kiegroup/kogito-operator/api v1.8.0 => github.com/ricardozanini/kogito-operator/api v0.0.0-20210701144745-b74b34358e13
+## explicit
+github.com/kiegroup/kogito-operator/api
+github.com/kiegroup/kogito-operator/api/v1beta1
+# github.com/kiegroup/kogito-operator/client v0.0.0-00010101000000-000000000000 => github.com/ricardozanini/kogito-operator/client v0.0.0-20210701144745-b74b34358e13
+## explicit
+github.com/kiegroup/kogito-operator/client/clientset/versioned
+github.com/kiegroup/kogito-operator/client/clientset/versioned/fake
+github.com/kiegroup/kogito-operator/client/clientset/versioned/scheme
+github.com/kiegroup/kogito-operator/client/clientset/versioned/typed/v1beta1
+github.com/kiegroup/kogito-operator/client/clientset/versioned/typed/v1beta1/fake
+github.com/kiegroup/kogito-operator/client/informers/externalversions
+github.com/kiegroup/kogito-operator/client/informers/externalversions/core
+github.com/kiegroup/kogito-operator/client/informers/externalversions/core/v1beta1
+github.com/kiegroup/kogito-operator/client/informers/externalversions/internalinterfaces
+github.com/kiegroup/kogito-operator/client/listers/core/v1beta1
 # github.com/konsorten/go-windows-terminal-sequences v1.0.3
 github.com/konsorten/go-windows-terminal-sequences
 # github.com/mailru/easyjson v0.7.7
@@ -729,7 +745,7 @@ k8s.io/client-go/util/homedir
 k8s.io/client-go/util/keyutil
 k8s.io/client-go/util/retry
 k8s.io/client-go/util/workqueue
-# k8s.io/code-generator v0.20.7
+# k8s.io/code-generator v0.21.1
 k8s.io/code-generator
 k8s.io/code-generator/cmd/client-gen
 k8s.io/code-generator/cmd/client-gen/args
@@ -776,9 +792,9 @@ k8s.io/gengo/parser
 k8s.io/gengo/types
 # k8s.io/klog v1.0.0
 k8s.io/klog
-# k8s.io/klog/v2 v2.4.0
+# k8s.io/klog/v2 v2.8.0
 k8s.io/klog/v2
-# k8s.io/kube-openapi v0.0.0-20201113171705-d219536bb9fd
+# k8s.io/kube-openapi v0.0.0-20210305001622-591a79e4bda7
 k8s.io/kube-openapi/cmd/openapi-gen/args
 k8s.io/kube-openapi/pkg/common
 k8s.io/kube-openapi/pkg/generators
@@ -862,8 +878,12 @@ knative.dev/pkg/webhook/configmaps
 knative.dev/pkg/webhook/resourcesemantics
 knative.dev/pkg/webhook/resourcesemantics/defaulting
 knative.dev/pkg/webhook/resourcesemantics/validation
-# sigs.k8s.io/structured-merge-diff/v4 v4.0.3
+# sigs.k8s.io/controller-runtime v0.6.3
+sigs.k8s.io/controller-runtime/pkg/scheme
+# sigs.k8s.io/structured-merge-diff/v4 v4.1.0
 sigs.k8s.io/structured-merge-diff/v4/value
 # sigs.k8s.io/yaml v1.2.0
 sigs.k8s.io/yaml
+# github.com/kiegroup/kogito-operator/api => github.com/ricardozanini/kogito-operator/api v0.0.0-20210701144745-b74b34358e13
+# github.com/kiegroup/kogito-operator/client => github.com/ricardozanini/kogito-operator/client v0.0.0-20210701144745-b74b34358e13
 # github.com/prometheus/client_golang => github.com/prometheus/client_golang v0.9.2
