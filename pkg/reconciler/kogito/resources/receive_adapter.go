@@ -18,6 +18,7 @@ package resources
 
 import (
 	"fmt"
+
 	"github.com/kiegroup/kogito-operator/api/v1beta1"
 
 	corev1 "k8s.io/api/core/v1"

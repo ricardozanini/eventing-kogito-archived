@@ -18,8 +18,9 @@ package v1alpha1
 
 import (
 	"context"
-	"github.com/kiegroup/kogito-operator/api/v1beta1"
 	"testing"
+
+	"github.com/kiegroup/kogito-operator/api/v1beta1"
 
 	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	duckv1 "knative.dev/pkg/apis/duck/v1"

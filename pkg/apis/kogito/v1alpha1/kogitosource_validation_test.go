@@ -18,9 +18,10 @@ package v1alpha1
 
 import (
 	"context"
+	"testing"
+
 	"github.com/kiegroup/kogito-operator/api/v1beta1"
 	duckv1 "knative.dev/pkg/apis/duck/v1"
-	"testing"
 
 	"github.com/google/go-cmp/cmp"
 	"knative.dev/pkg/webhook/resourcesemantics"
