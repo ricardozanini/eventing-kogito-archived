@@ -1,0 +1,18 @@
+---
+apiVersion: messaging.knative.dev/v1
+kind: InMemoryChannel
+metadata:
+  name: kogito-test
+---
+apiVersion: kogito.knative.dev/v1alpha1
+kind: KogitoSource
+metadata:
+  name: kogito-order-processing-source
+spec:
+  template:
+    image: quay.io/ricardozanini/order-processing-workflow:latest
+  sink:
+    ref:
+      apiVersion: messaging.knative.dev/v1
+      kind: InMemoryChannel
+      name: kogito-test

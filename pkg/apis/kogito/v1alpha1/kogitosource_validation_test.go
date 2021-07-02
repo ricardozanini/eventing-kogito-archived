@@ -18,6 +18,8 @@ package v1alpha1
 
 import (
 	"context"
+	"github.com/kiegroup/kogito-operator/api/v1beta1"
+	duckv1 "knative.dev/pkg/apis/duck/v1"
 	"testing"
 
 	"github.com/google/go-cmp/cmp"
@@ -33,7 +35,15 @@ func TestKogitoSourceValidation(t *testing.T) {
 	}{
 		"nil spec": {
 			cr: &KogitoSource{
-				Spec: KogitoSourceSpec{},
+				Spec: KogitoSourceSpec{
+					Template: KogitoRuntimeTemplate{
+						KogitoRuntimeSpec: v1beta1.KogitoRuntimeSpec{
+							KogitoServiceSpec: v1beta1.KogitoServiceSpec{
+								Image: "quay.io/kiegroup/serverless-workflow-example",
+							},
+						},
+					},
+				},
 			},
 			want: func() *apis.FieldError {
 				var errs *apis.FieldError
@@ -45,6 +55,34 @@ func TestKogitoSourceValidation(t *testing.T) {
 				feServiceAccountName := apis.ErrMissingField("serviceAccountName")
 				feServiceAccountName = feServiceAccountName.ViaField("spec")
 				errs = errs.Also(feServiceAccountName)
+
+				return errs
+			}(),
+		},
+
+		"no kogito image": {
+			cr: &KogitoSource{
+				Spec: KogitoSourceSpec{
+					SourceSpec: duckv1.SourceSpec{
+						Sink: duckv1.Destination{
+							Ref: &duckv1.KReference{
+								Kind:       "Pod",
+								Namespace:  "default",
+								Name:       "mypod",
+								APIVersion: "v1",
+							},
+						},
+					},
+					ServiceAccountName: "default",
+					Template:           KogitoRuntimeTemplate{},
+				},
+			},
+			want: func() *apis.FieldError {
+				var errs *apis.FieldError
+
+				feTemplateImage := apis.ErrMissingField("template.image")
+				feTemplateImage = feTemplateImage.ViaField("spec")
+				errs = errs.Also(feTemplateImage)
 
 				return errs
 			}(),

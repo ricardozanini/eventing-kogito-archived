@@ -39,12 +39,8 @@ import (
 
 // Reconciler reconciles a KogitoSource object
 type Reconciler struct {
-	ReceiveAdapterImage string `envconfig:"SAMPLE_SOURCE_RA_IMAGE" required:"true"`
-
-	dr *reconciler.DeploymentReconciler
-
-	sinkResolver *resolver.URIResolver
-
+	dr             *reconciler.KogitoRuntimeReconciler
+	sinkResolver   *resolver.URIResolver
 	configAccessor reconcilersource.ConfigAccessor
 }
 
@@ -56,10 +52,9 @@ func (r *Reconciler) ReconcileKind(ctx context.Context, src *v1alpha1.KogitoSour
 
 	ctx = sourcesv1.WithURIResolver(ctx, r.sinkResolver)
 
-	ra, sb, event := r.dr.ReconcileDeployment(ctx, src, makeSinkBinding(src),
+	ra, sb, event := r.dr.ReconcileKogitoRuntime(ctx, src, makeSinkBinding(src),
 		resources.MakeReceiveAdapter(&resources.ReceiveAdapterArgs{
 			EventSource:    src.Namespace + "/" + src.Name,
-			Image:          r.ReceiveAdapterImage,
 			Source:         src,
 			Labels:         resources.Labels(src.Name),
 			AdditionalEnvs: r.configAccessor.ToEnvVars(), // Grab config envs for tracing/logging/metrics
@@ -76,7 +71,7 @@ func (r *Reconciler) ReconcileKind(ctx context.Context, src *v1alpha1.KogitoSour
 		}
 	}
 	if event != nil {
-		logging.FromContext(ctx).Infof("returning because event from ReconcileDeployment")
+		logging.FromContext(ctx).Infof("returning because event from ReconcileKogitoRuntime")
 		return event
 	}
 

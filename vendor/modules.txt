@@ -12,8 +12,6 @@ contrib.go.opencensus.io/exporter/stackdriver
 contrib.go.opencensus.io/exporter/stackdriver/monitoredresource
 contrib.go.opencensus.io/exporter/stackdriver/monitoredresource/aws
 contrib.go.opencensus.io/exporter/stackdriver/monitoredresource/gcp
-# contrib.go.opencensus.io/exporter/zipkin v0.1.2
-contrib.go.opencensus.io/exporter/zipkin
 # github.com/PuerkitoBio/purell v1.1.1
 github.com/PuerkitoBio/purell
 # github.com/PuerkitoBio/urlesc v0.0.0-20170810143723-de5bf2ad4578
@@ -73,7 +71,6 @@ github.com/census-instrumentation/opencensus-proto/gen-go/metrics/v1
 github.com/census-instrumentation/opencensus-proto/gen-go/resource/v1
 github.com/census-instrumentation/opencensus-proto/gen-go/trace/v1
 # github.com/cloudevents/sdk-go/v2 v2.4.1
-## explicit
 github.com/cloudevents/sdk-go/v2
 github.com/cloudevents/sdk-go/v2/binding
 github.com/cloudevents/sdk-go/v2/binding/format
@@ -127,6 +124,7 @@ github.com/golang/protobuf/ptypes/wrappers
 # github.com/google/go-cmp v0.5.6
 ## explicit
 github.com/google/go-cmp/cmp
+github.com/google/go-cmp/cmp/cmpopts
 github.com/google/go-cmp/cmp/internal/diff
 github.com/google/go-cmp/cmp/internal/flags
 github.com/google/go-cmp/cmp/internal/function
@@ -146,10 +144,6 @@ github.com/googleapis/gnostic/openapiv2
 github.com/grpc-ecosystem/grpc-gateway/internal
 github.com/grpc-ecosystem/grpc-gateway/runtime
 github.com/grpc-ecosystem/grpc-gateway/utilities
-# github.com/hashicorp/go-cleanhttp v0.5.1
-github.com/hashicorp/go-cleanhttp
-# github.com/hashicorp/go-retryablehttp v0.6.7
-github.com/hashicorp/go-retryablehttp
 # github.com/hashicorp/golang-lru v0.5.4
 github.com/hashicorp/golang-lru
 github.com/hashicorp/golang-lru/simplelru
@@ -164,11 +158,11 @@ github.com/json-iterator/go
 # github.com/kelseyhightower/envconfig v1.4.0
 ## explicit
 github.com/kelseyhightower/envconfig
-# github.com/kiegroup/kogito-operator/api v1.8.0 => github.com/ricardozanini/kogito-operator/api v0.0.0-20210701144745-b74b34358e13
+# github.com/kiegroup/kogito-operator/api v1.8.0 => github.com/kiegroup/kogito-operator/api v0.0.0-20210702132500-6452df3eb8be
 ## explicit
 github.com/kiegroup/kogito-operator/api
 github.com/kiegroup/kogito-operator/api/v1beta1
-# github.com/kiegroup/kogito-operator/client v0.0.0-00010101000000-000000000000 => github.com/ricardozanini/kogito-operator/client v0.0.0-20210701144745-b74b34358e13
+# github.com/kiegroup/kogito-operator/client v1.8.0 => github.com/kiegroup/kogito-operator/client v0.0.0-20210702132500-6452df3eb8be
 ## explicit
 github.com/kiegroup/kogito-operator/client/clientset/versioned
 github.com/kiegroup/kogito-operator/client/clientset/versioned/fake
@@ -192,17 +186,8 @@ github.com/matttproud/golang_protobuf_extensions/pbutil
 github.com/modern-go/concurrent
 # github.com/modern-go/reflect2 v1.0.1
 github.com/modern-go/reflect2
-# github.com/openzipkin/zipkin-go v0.2.5
-github.com/openzipkin/zipkin-go
-github.com/openzipkin/zipkin-go/idgenerator
-github.com/openzipkin/zipkin-go/model
-github.com/openzipkin/zipkin-go/propagation
-github.com/openzipkin/zipkin-go/reporter
-github.com/openzipkin/zipkin-go/reporter/http
 # github.com/pkg/errors v0.9.1
 github.com/pkg/errors
-# github.com/pmezard/go-difflib v1.0.0
-github.com/pmezard/go-difflib/difflib
 # github.com/prometheus/client_golang v1.11.0 => github.com/prometheus/client_golang v0.9.2
 github.com/prometheus/client_golang/prometheus
 github.com/prometheus/client_golang/prometheus/internal
@@ -231,10 +216,6 @@ github.com/robfig/cron/v3
 github.com/sirupsen/logrus
 # github.com/spf13/pflag v1.0.5
 github.com/spf13/pflag
-# github.com/stretchr/testify v1.7.0
-## explicit
-github.com/stretchr/testify/assert
-github.com/stretchr/testify/require
 # go.opencensus.io v0.23.0
 go.opencensus.io
 go.opencensus.io/internal
@@ -245,7 +226,6 @@ go.opencensus.io/metric/metricproducer
 go.opencensus.io/plugin/ocgrpc
 go.opencensus.io/plugin/ochttp
 go.opencensus.io/plugin/ochttp/propagation/b3
-go.opencensus.io/plugin/ochttp/propagation/tracecontext
 go.opencensus.io/resource
 go.opencensus.io/resource/resourcekeys
 go.opencensus.io/stats
@@ -469,8 +449,6 @@ gopkg.in/alecthomas/kingpin.v2
 gopkg.in/inf.v0
 # gopkg.in/yaml.v2 v2.4.0
 gopkg.in/yaml.v2
-# gopkg.in/yaml.v3 v3.0.0-20210107192922-496545a6307b
-gopkg.in/yaml.v3
 # k8s.io/api v0.20.7
 ## explicit
 k8s.io/api/admission/v1
@@ -808,15 +786,51 @@ k8s.io/utils/pointer
 k8s.io/utils/trace
 # knative.dev/eventing v0.23.1-0.20210623160544-0cb787308255
 ## explicit
-knative.dev/eventing/pkg/adapter/v2
-knative.dev/eventing/pkg/adapter/v2/util/crstatusevent
+knative.dev/eventing/pkg/apis/config
 knative.dev/eventing/pkg/apis/duck
 knative.dev/eventing/pkg/apis/duck/v1
+knative.dev/eventing/pkg/apis/eventing
+knative.dev/eventing/pkg/apis/eventing/v1
+knative.dev/eventing/pkg/apis/eventing/v1beta1
 knative.dev/eventing/pkg/apis/feature
+knative.dev/eventing/pkg/apis/flows
+knative.dev/eventing/pkg/apis/flows/v1
+knative.dev/eventing/pkg/apis/messaging
+knative.dev/eventing/pkg/apis/messaging/config
+knative.dev/eventing/pkg/apis/messaging/v1
 knative.dev/eventing/pkg/apis/sources
 knative.dev/eventing/pkg/apis/sources/config
 knative.dev/eventing/pkg/apis/sources/v1
-knative.dev/eventing/pkg/kncloudevents
+knative.dev/eventing/pkg/apis/sources/v1beta2
+knative.dev/eventing/pkg/client/clientset/versioned
+knative.dev/eventing/pkg/client/clientset/versioned/scheme
+knative.dev/eventing/pkg/client/clientset/versioned/typed/eventing/v1
+knative.dev/eventing/pkg/client/clientset/versioned/typed/eventing/v1beta1
+knative.dev/eventing/pkg/client/clientset/versioned/typed/flows/v1
+knative.dev/eventing/pkg/client/clientset/versioned/typed/messaging/v1
+knative.dev/eventing/pkg/client/clientset/versioned/typed/sources/v1
+knative.dev/eventing/pkg/client/clientset/versioned/typed/sources/v1beta2
+knative.dev/eventing/pkg/client/informers/externalversions
+knative.dev/eventing/pkg/client/informers/externalversions/eventing
+knative.dev/eventing/pkg/client/informers/externalversions/eventing/v1
+knative.dev/eventing/pkg/client/informers/externalversions/eventing/v1beta1
+knative.dev/eventing/pkg/client/informers/externalversions/flows
+knative.dev/eventing/pkg/client/informers/externalversions/flows/v1
+knative.dev/eventing/pkg/client/informers/externalversions/internalinterfaces
+knative.dev/eventing/pkg/client/informers/externalversions/messaging
+knative.dev/eventing/pkg/client/informers/externalversions/messaging/v1
+knative.dev/eventing/pkg/client/informers/externalversions/sources
+knative.dev/eventing/pkg/client/informers/externalversions/sources/v1
+knative.dev/eventing/pkg/client/informers/externalversions/sources/v1beta2
+knative.dev/eventing/pkg/client/injection/client
+knative.dev/eventing/pkg/client/injection/informers/factory
+knative.dev/eventing/pkg/client/injection/informers/sources/v1/sinkbinding
+knative.dev/eventing/pkg/client/listers/eventing/v1
+knative.dev/eventing/pkg/client/listers/eventing/v1beta1
+knative.dev/eventing/pkg/client/listers/flows/v1
+knative.dev/eventing/pkg/client/listers/messaging/v1
+knative.dev/eventing/pkg/client/listers/sources/v1
+knative.dev/eventing/pkg/client/listers/sources/v1beta2
 knative.dev/eventing/pkg/reconciler/source
 # knative.dev/hack v0.0.0-20210622141627-e28525d8d260
 ## explicit
@@ -833,7 +847,6 @@ knative.dev/pkg/client/injection/ducks/duck/v1/addressable
 knative.dev/pkg/client/injection/kube/client
 knative.dev/pkg/client/injection/kube/informers/admissionregistration/v1/mutatingwebhookconfiguration
 knative.dev/pkg/client/injection/kube/informers/admissionregistration/v1/validatingwebhookconfiguration
-knative.dev/pkg/client/injection/kube/informers/apps/v1/deployment
 knative.dev/pkg/client/injection/kube/informers/factory
 knative.dev/pkg/codegen/cmd/injection-gen
 knative.dev/pkg/codegen/cmd/injection-gen/args
@@ -863,12 +876,8 @@ knative.dev/pkg/ptr
 knative.dev/pkg/reconciler
 knative.dev/pkg/resolver
 knative.dev/pkg/signals
-knative.dev/pkg/source
 knative.dev/pkg/system
-knative.dev/pkg/tracing
 knative.dev/pkg/tracing/config
-knative.dev/pkg/tracing/propagation
-knative.dev/pkg/tracing/propagation/tracecontextb3
 knative.dev/pkg/tracker
 knative.dev/pkg/version
 knative.dev/pkg/webhook
@@ -884,6 +893,6 @@ sigs.k8s.io/controller-runtime/pkg/scheme
 sigs.k8s.io/structured-merge-diff/v4/value
 # sigs.k8s.io/yaml v1.2.0
 sigs.k8s.io/yaml
-# github.com/kiegroup/kogito-operator/api => github.com/ricardozanini/kogito-operator/api v0.0.0-20210701144745-b74b34358e13
-# github.com/kiegroup/kogito-operator/client => github.com/ricardozanini/kogito-operator/client v0.0.0-20210701144745-b74b34358e13
+# github.com/kiegroup/kogito-operator/api => github.com/kiegroup/kogito-operator/api v0.0.0-20210702132500-6452df3eb8be
+# github.com/kiegroup/kogito-operator/client => github.com/kiegroup/kogito-operator/client v0.0.0-20210702132500-6452df3eb8be
 # github.com/prometheus/client_golang => github.com/prometheus/client_golang v0.9.2

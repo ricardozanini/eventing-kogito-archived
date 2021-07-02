@@ -26,6 +26,7 @@ export GOFLAGS=-mod=
 echo "=== Update Codegen for ${MODULE_NAME}"
 
 (
+  group "Kogito Codegen"
   # External Kogito API
   OUTPUT_PKG="knative.dev/eventing-kogito/pkg/kogito/injection" \
     VERSIONED_CLIENTSET_PKG="github.com/kiegroup/kogito-operator/client/clientset/versioned" \

@@ -18,6 +18,7 @@ package v1alpha1
 
 import (
 	"context"
+	"github.com/kiegroup/kogito-operator/api/v1beta1"
 	"testing"
 
 	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
@@ -27,6 +28,7 @@ import (
 )
 
 func TestKogitoSourceDefaults(t *testing.T) {
+	replicas := int32(1)
 	testCases := map[string]struct {
 		initial  KogitoSource
 		expected KogitoSource
@@ -36,6 +38,11 @@ func TestKogitoSourceDefaults(t *testing.T) {
 			expected: KogitoSource{
 				Spec: KogitoSourceSpec{
 					ServiceAccountName: "default",
+					Template: KogitoRuntimeTemplate{KogitoRuntimeSpec: v1beta1.KogitoRuntimeSpec{
+						KogitoServiceSpec: v1beta1.KogitoServiceSpec{
+							Replicas: &replicas,
+						},
+					}},
 				},
 			},
 		},
@@ -59,6 +66,11 @@ func TestKogitoSourceDefaults(t *testing.T) {
 				},
 				Spec: KogitoSourceSpec{
 					ServiceAccountName: "default",
+					Template: KogitoRuntimeTemplate{KogitoRuntimeSpec: v1beta1.KogitoRuntimeSpec{
+						KogitoServiceSpec: v1beta1.KogitoServiceSpec{
+							Replicas: &replicas,
+						},
+					}},
 					SourceSpec: duckv1.SourceSpec{
 						Sink: duckv1.Destination{
 							Ref: &duckv1.KReference{

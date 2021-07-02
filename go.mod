@@ -3,12 +3,10 @@ module knative.dev/eventing-kogito
 go 1.14
 
 require (
-	github.com/cloudevents/sdk-go/v2 v2.4.1
 	github.com/google/go-cmp v0.5.6
 	github.com/kelseyhightower/envconfig v1.4.0
 	github.com/kiegroup/kogito-operator/api v1.8.0
-	github.com/kiegroup/kogito-operator/client v0.0.0-00010101000000-000000000000
-	github.com/stretchr/testify v1.7.0
+	github.com/kiegroup/kogito-operator/client v1.8.0
 	go.uber.org/zap v1.17.0
 	k8s.io/api v0.20.7
 	k8s.io/apimachinery v0.20.7
@@ -19,7 +17,7 @@ require (
 )
 
 replace (
-	github.com/kiegroup/kogito-operator/api => github.com/ricardozanini/kogito-operator/api v0.0.0-20210701144745-b74b34358e13
-	github.com/kiegroup/kogito-operator/client => github.com/ricardozanini/kogito-operator/client v0.0.0-20210701144745-b74b34358e13
+	github.com/kiegroup/kogito-operator/api => github.com/kiegroup/kogito-operator/api v0.0.0-20210702132500-6452df3eb8be
+	github.com/kiegroup/kogito-operator/client => github.com/kiegroup/kogito-operator/client v0.0.0-20210702132500-6452df3eb8be
 	github.com/prometheus/client_golang => github.com/prometheus/client_golang v0.9.2
 )

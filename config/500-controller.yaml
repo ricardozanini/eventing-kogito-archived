@@ -46,7 +46,7 @@ spec:
       containers:
         - name: controller
           terminationMessagePolicy: FallbackToLogsOnError
-          image: ko://knative.dev/kogito-source/cmd/controller
+          image: ko://knative.dev/eventing-kogito/cmd/controller
 
           resources:
             requests:
@@ -64,8 +64,6 @@ spec:
               value: config-observability
             - name: METRICS_DOMAIN
               value: knative.dev/sources
-            - name: SAMPLE_SOURCE_RA_IMAGE
-              value: ko://knative.dev/kogito-source/cmd/receive_adapter
             - name: POD_NAME
               valueFrom:
                 fieldRef:

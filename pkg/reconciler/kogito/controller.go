@@ -34,9 +34,10 @@ import (
 
 	kogitosourceinformer "knative.dev/eventing-kogito/pkg/client/injection/informers/kogito/v1alpha1/kogitosource"
 	"knative.dev/eventing-kogito/pkg/client/injection/reconciler/kogito/v1alpha1/kogitosource"
+	kogitoclient "knative.dev/eventing-kogito/pkg/kogito/injection/client"
 	kogitoruntimeinformer "knative.dev/eventing-kogito/pkg/kogito/injection/informers/factory"
+	sinkbindinginformer "knative.dev/eventing/pkg/client/injection/informers/sources/v1/sinkbinding"
 	kubeclient "knative.dev/pkg/client/injection/kube/client"
-	deploymentinformer "knative.dev/pkg/client/injection/kube/informers/apps/v1/deployment"
 )
 
 // NewController initializes the controller and is called by the generated code
@@ -45,12 +46,12 @@ func NewController(
 	ctx context.Context,
 	cmw configmap.Watcher,
 ) *controller.Impl {
-	deploymentInformer := deploymentinformer.Get(ctx)
+	sinkBindingInformer := sinkbindinginformer.Get(ctx)
 	kogitoSourceInformer := kogitosourceinformer.Get(ctx)
 	kogitoRuntimeInformer := kogitoruntimeinformer.Get(ctx)
 
 	r := &Reconciler{
-		dr: &reconciler.DeploymentReconciler{KubeClientSet: kubeclient.Get(ctx)},
+		dr: &reconciler.KogitoRuntimeReconciler{KubeClientSet: kubeclient.Get(ctx), KogitoClientSet: kogitoclient.Get(ctx)},
 		// Config accessor takes care of tracing/config/logging config propagation to the receive adapter
 		configAccessor: reconcilersource.WatchConfigurations(ctx, "kogito-source", cmw),
 	}
@@ -66,7 +67,7 @@ func NewController(
 
 	kogitoSourceInformer.Informer().AddEventHandler(controller.HandleAll(impl.Enqueue))
 
-	deploymentInformer.Informer().AddEventHandler(cache.FilteringResourceEventHandler{
+	sinkBindingInformer.Informer().AddEventHandler(cache.FilteringResourceEventHandler{
 		FilterFunc: controller.FilterControllerGK(v1alpha1.Kind("KogitoSource")),
 		Handler:    controller.HandleAll(impl.EnqueueControllerOf),
 	})

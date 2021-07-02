@@ -19,10 +19,11 @@ metadata:
   labels:
     kogito.knative.dev/release: devel
 rules:
+  # Kogito Resources
   - apiGroups:
-      - apps
+      - app.kiegroup.org
     resources:
-      - deployments
+      - kogitoruntimes
     verbs: &everything
       - get
       - list
@@ -31,6 +32,27 @@ rules:
       - update
       - patch
       - delete
+  - apiGroups:
+      - app.kiegroup.org
+    resources:
+      - kogitoruntimes/status
+    verbs:
+      - get
+
+  - apiGroups:
+      - sources.knative.dev
+    resources:
+      - sinkbindings
+    verbs: *everything
+
+  - apiGroups:
+      - apps
+    resources:
+      - deployments
+    verbs:
+      - get
+      - list
+      - watch
 
   - apiGroups:
       - rbac.authorization.k8s.io

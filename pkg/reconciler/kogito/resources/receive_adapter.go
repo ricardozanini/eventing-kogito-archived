@@ -18,8 +18,8 @@ package resources
 
 import (
 	"fmt"
+	"github.com/kiegroup/kogito-operator/api/v1beta1"
 
-	v1 "k8s.io/api/apps/v1"
 	corev1 "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"knative.dev/pkg/kmeta"
@@ -27,21 +27,20 @@ import (
 	"knative.dev/eventing-kogito/pkg/apis/kogito/v1alpha1"
 )
 
-// ReceiveAdapterArgs are the arguments needed to create a Sample Source Receive Adapter.
+// ReceiveAdapterArgs are the arguments needed to create a KogitoSource Receive Adapter.
 // Every field is required.
 type ReceiveAdapterArgs struct {
-	Image          string
 	Labels         map[string]string
 	Source         *v1alpha1.KogitoSource
 	EventSource    string
 	AdditionalEnvs []corev1.EnvVar
 }
 
-// MakeReceiveAdapter generates (but does not insert into K8s) the Receive Adapter Deployment for
-// Sample sources.
-func MakeReceiveAdapter(args *ReceiveAdapterArgs) *v1.Deployment {
+// MakeReceiveAdapter generates (but does not insert into K8s) the Receive Adapter KogitoRuntime for
+// KogitoSource sources.
+func MakeReceiveAdapter(args *ReceiveAdapterArgs) *v1beta1.KogitoRuntime {
 	replicas := int32(1)
-	return &v1.Deployment{
+	kogitoRuntime := &v1beta1.KogitoRuntime{
 		ObjectMeta: metav1.ObjectMeta{
 			Namespace: args.Source.Namespace,
 			Name:      kmeta.ChildName(fmt.Sprintf("kogitosource-%s-", args.Source.Name), string(args.Source.GetUID())),
@@ -50,51 +49,21 @@ func MakeReceiveAdapter(args *ReceiveAdapterArgs) *v1.Deployment {
 				*kmeta.NewControllerRef(args.Source),
 			},
 		},
-		Spec: v1.DeploymentSpec{
-			Selector: &metav1.LabelSelector{
-				MatchLabels: args.Labels,
-			},
-			Replicas: &replicas,
-			Template: corev1.PodTemplateSpec{
-				ObjectMeta: metav1.ObjectMeta{
-					Labels: args.Labels,
-				},
-				Spec: corev1.PodSpec{
-					ServiceAccountName: args.Source.Spec.ServiceAccountName,
-					Containers: []corev1.Container{
-						{
-							Name:  "receive-adapter",
-							Image: args.Image,
-							Env: append(
-								makeEnv(args.EventSource, &args.Source.Spec),
-								args.AdditionalEnvs...,
-							),
-						},
-					},
-				},
-			},
-		},
+		Spec: args.Source.Spec.Template.KogitoRuntimeSpec,
 	}
+	if kogitoRuntime.Spec.Replicas == nil {
+		kogitoRuntime.Spec.Replicas = &replicas
+	}
+	kogitoRuntime.Spec.DeploymentLabels = args.Labels
+	kogitoRuntime.Spec.ServiceLabels = args.Labels
+	kogitoRuntime.Spec.Env = append(makeEnv(args.EventSource), args.AdditionalEnvs...)
+	return kogitoRuntime
 }
 
-func makeEnv(eventSource string, spec *v1alpha1.KogitoSourceSpec) []corev1.EnvVar {
+func makeEnv(eventSource string) []corev1.EnvVar {
 	return []corev1.EnvVar{{
 		Name:  "EVENT_SOURCE",
 		Value: eventSource,
-	}, {
-		Name: "NAMESPACE",
-		ValueFrom: &corev1.EnvVarSource{
-			FieldRef: &corev1.ObjectFieldSelector{
-				FieldPath: "metadata.namespace",
-			},
-		},
-	}, {
-		Name: "NAME",
-		ValueFrom: &corev1.EnvVarSource{
-			FieldRef: &corev1.ObjectFieldSelector{
-				FieldPath: "metadata.name",
-			},
-		},
 	}, {
 		Name:  "METRICS_DOMAIN",
 		Value: "knative.dev/eventing",

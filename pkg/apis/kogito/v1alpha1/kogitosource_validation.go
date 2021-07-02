@@ -38,14 +38,16 @@ func (sspec *KogitoSourceSpec) Validate(ctx context.Context) *apis.FieldError {
 	//Add code for validation webhook for KogitoSourceSpec.
 	var errs *apis.FieldError
 
-	//example: validation for sink field.
 	if fe := sspec.Sink.Validate(ctx); fe != nil {
 		errs = errs.Also(fe.ViaField("sink"))
 	}
 
-	//example: validation for serviceAccountName field.
 	if sspec.ServiceAccountName == "" {
 		errs = errs.Also(apis.ErrMissingField("serviceAccountName"))
+	}
+
+	if sspec.Template.Image == "" {
+		errs = errs.Also(apis.ErrMissingField("template.image"))
 	}
 
 	return errs
