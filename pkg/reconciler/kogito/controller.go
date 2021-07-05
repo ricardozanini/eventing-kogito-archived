@@ -37,7 +37,6 @@ import (
 	"knative.dev/eventing-kogito/pkg/client/injection/reconciler/kogito/v1alpha1/kogitosource"
 	kogitoclient "knative.dev/eventing-kogito/pkg/kogito/injection/client"
 	kogitoruntimeinformer "knative.dev/eventing-kogito/pkg/kogito/injection/informers/factory"
-	sinkbindinginformer "knative.dev/eventing/pkg/client/injection/informers/sources/v1/sinkbinding"
 	kubeclient "knative.dev/pkg/client/injection/kube/client"
 )
 
@@ -47,12 +46,11 @@ func NewController(
 	ctx context.Context,
 	cmw configmap.Watcher,
 ) *controller.Impl {
-	sinkBindingInformer := sinkbindinginformer.Get(ctx)
 	kogitoSourceInformer := kogitosourceinformer.Get(ctx)
 	kogitoRuntimeInformer := kogitoruntimeinformer.Get(ctx)
 
 	r := &Reconciler{
-		dr: &reconciler.KogitoRuntimeReconciler{KubeClientSet: kubeclient.Get(ctx), KogitoClientSet: kogitoclient.Get(ctx)},
+		krr: &reconciler.KogitoRuntimeReconciler{KubeClientSet: kubeclient.Get(ctx), KogitoClientSet: kogitoclient.Get(ctx)},
 		// Config accessor takes care of tracing/config/logging config propagation to the receive adapter
 		configAccessor: reconcilersource.WatchConfigurations(ctx, "kogito-source", cmw),
 	}
@@ -67,11 +65,6 @@ func NewController(
 	logging.FromContext(ctx).Info("Setting up event handlers")
 
 	kogitoSourceInformer.Informer().AddEventHandler(controller.HandleAll(impl.Enqueue))
-
-	sinkBindingInformer.Informer().AddEventHandler(cache.FilteringResourceEventHandler{
-		FilterFunc: controller.FilterControllerGK(v1alpha1.Kind("KogitoSource")),
-		Handler:    controller.HandleAll(impl.EnqueueControllerOf),
-	})
 
 	// TODO: We are unable to generate the Informers correctly for Kogito Operator since its structure follows kubebuilder: api/{version}, instead of pkg/apis/{group}/{version}. Might need to change that there to have the injection being generated correctly.
 	kogitoRuntimeInformer.App().V1beta1().KogitoRuntimes().Informer().AddEventHandler(cache.FilteringResourceEventHandler{

@@ -7,6 +7,7 @@ require (
 	github.com/kelseyhightower/envconfig v1.4.0
 	github.com/kiegroup/kogito-operator/api v1.8.0
 	github.com/kiegroup/kogito-operator/client v1.8.0
+	github.com/stretchr/testify v1.7.0
 	go.uber.org/zap v1.17.0
 	k8s.io/api v0.20.7
 	k8s.io/apimachinery v0.20.7

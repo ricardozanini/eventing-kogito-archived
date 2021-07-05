@@ -39,7 +39,7 @@ import (
 
 // Reconciler reconciles a KogitoSource object
 type Reconciler struct {
-	dr             *reconciler.KogitoRuntimeReconciler
+	krr            *reconciler.KogitoRuntimeReconciler
 	sinkResolver   *resolver.URIResolver
 	configAccessor reconcilersource.ConfigAccessor
 }
@@ -52,7 +52,7 @@ func (r *Reconciler) ReconcileKind(ctx context.Context, src *v1alpha1.KogitoSour
 
 	ctx = sourcesv1.WithURIResolver(ctx, r.sinkResolver)
 
-	ra, sb, event := r.dr.ReconcileKogitoRuntime(ctx, src, makeSinkBinding(src),
+	ra, sb, event := r.krr.ReconcileKogitoRuntime(ctx, src, makeSinkBinding(src),
 		resources.MakeReceiveAdapter(&resources.ReceiveAdapterArgs{
 			EventSource:    src.Namespace + "/" + src.Name,
 			Source:         src,

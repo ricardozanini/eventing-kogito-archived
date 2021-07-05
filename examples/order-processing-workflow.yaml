@@ -1,9 +1,4 @@
----
-apiVersion: messaging.knative.dev/v1
-kind: InMemoryChannel
-metadata:
-  name: kogito-test
----
+# use inmemory-channel.yaml to create the sink
 apiVersion: kogito.knative.dev/v1alpha1
 kind: KogitoSource
 metadata:
