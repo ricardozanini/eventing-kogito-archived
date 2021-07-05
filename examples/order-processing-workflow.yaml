@@ -1,4 +1,4 @@
-# use inmemory-channel.yaml to create the sink
+# see sinks directory. use inmemory-channel.yaml to create the sink (or you can change it to any other sink you wish)
 apiVersion: kogito.knative.dev/v1alpha1
 kind: KogitoSource
 metadata:

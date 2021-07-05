@@ -13,6 +13,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 */
+
 package reconciler
 
 import (
@@ -33,6 +34,7 @@ import (
 )
 
 func TestKogitoRuntimeReconciler_VerifyCreation(t *testing.T) {
+	// TODO: export to another function to make it easier to use across test cases
 	kogitoSourceBytes, err := ioutil.ReadFile("../../examples/order-processing-workflow.yaml")
 	assert.NoError(t, err)
 	src := &v1alpha1.KogitoSource{}
@@ -40,6 +42,7 @@ func TestKogitoRuntimeReconciler_VerifyCreation(t *testing.T) {
 	err = decoder.Decode(src)
 	assert.NoError(t, err)
 
+	// TODO: add to the context mocks for SinkBinding Resolver
 	ctx := context.TODO()
 	runtimeReconciler := KogitoRuntimeReconciler{KubeClientSet: k8sfake.NewSimpleClientset(), KogitoClientSet: kogitofake.NewSimpleClientset()}
 	deployment, binder, event := runtimeReconciler.ReconcileKogitoRuntime(ctx, src,
