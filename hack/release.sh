@@ -24,7 +24,7 @@ export GO111MODULE=on
 # Yaml files to generate, and the source config dir for them.
 declare -A COMPONENTS
 COMPONENTS=(
-  ["sample.yaml"]="config"
+  ["kogito.yaml"]="config"
 )
 readonly COMPONENTS
 
@@ -41,7 +41,7 @@ function build_release() {
   local all_yamls=()
   for yaml in "${!COMPONENTS[@]}"; do
     local config="${COMPONENTS[${yaml}]}"
-    echo "Building Knative Sample Source - ${config}"
+    echo "Building Knative Kogito Source - ${config}"
     # TODO(chizhg): reenable --strict mode after https://github.com/knative/test-infra/issues/1262 is fixed.
     ko resolve ${KO_FLAGS} -f ${config}/ | "${LABEL_YAML_CMD[@]}" > ${yaml}
     all_yamls+=(${yaml})

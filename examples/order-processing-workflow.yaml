@@ -2,12 +2,11 @@
 apiVersion: kogito.knative.dev/v1alpha1
 kind: KogitoSource
 metadata:
-  name: kogito-order-processing-source
+  name: kogito-order-processing
 spec:
-  template:
-    image: quay.io/ricardozanini/order-processing-workflow:latest
+  image: quay.io/ricardozanini/order-processing-workflow:latest
   sink:
     ref:
-      apiVersion: messaging.knative.dev/v1
-      kind: InMemoryChannel
-      name: kogito-test
+      apiVersion: serving.knative.dev/v1
+      kind: Service
+      name: event-display

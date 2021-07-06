@@ -37,11 +37,9 @@ func TestKogitoSourceValidation(t *testing.T) {
 		"nil spec": {
 			cr: &KogitoSource{
 				Spec: KogitoSourceSpec{
-					Template: KogitoRuntimeTemplate{
-						KogitoRuntimeSpec: v1beta1.KogitoRuntimeSpec{
-							KogitoServiceSpec: v1beta1.KogitoServiceSpec{
-								Image: "quay.io/kiegroup/serverless-workflow-example",
-							},
+					KogitoRuntimeSpec: v1beta1.KogitoRuntimeSpec{
+						KogitoServiceSpec: v1beta1.KogitoServiceSpec{
+							Image: "quay.io/kiegroup/serverless-workflow-example",
 						},
 					},
 				},
@@ -75,15 +73,15 @@ func TestKogitoSourceValidation(t *testing.T) {
 						},
 					},
 					ServiceAccountName: "default",
-					Template:           KogitoRuntimeTemplate{},
+					KogitoRuntimeSpec:  v1beta1.KogitoRuntimeSpec{},
 				},
 			},
 			want: func() *apis.FieldError {
 				var errs *apis.FieldError
 
-				feTemplateImage := apis.ErrMissingField("template.image")
-				feTemplateImage = feTemplateImage.ViaField("spec")
-				errs = errs.Also(feTemplateImage)
+				feImage := apis.ErrMissingField("image")
+				feImage = feImage.ViaField("spec")
+				errs = errs.Also(feImage)
 
 				return errs
 			}(),

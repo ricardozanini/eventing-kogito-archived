@@ -81,13 +81,9 @@ type KogitoSourceSpec struct {
 	// +optional
 	ServiceAccountName string `json:"serviceAccountName,omitempty"`
 
-	// Template is the KogitoRuntime definition that deployed by this source
-	Template KogitoRuntimeTemplate `json:"template"`
-}
-
-// KogitoRuntimeTemplate template for a KogitoRuntime service
-type KogitoRuntimeTemplate struct {
-	kogitoapi.KogitoRuntimeSpec
+	// inherits kogitoapi.KogitoRuntimeSpec, which provides the interface for users
+	// to declare the KogitoRuntime service to be deployed as an event source
+	kogitoapi.KogitoRuntimeSpec `json:",inline"`
 }
 
 const (

@@ -39,11 +39,11 @@ func TestKogitoSourceDefaults(t *testing.T) {
 			expected: KogitoSource{
 				Spec: KogitoSourceSpec{
 					ServiceAccountName: "default",
-					Template: KogitoRuntimeTemplate{KogitoRuntimeSpec: v1beta1.KogitoRuntimeSpec{
+					KogitoRuntimeSpec: v1beta1.KogitoRuntimeSpec{
 						KogitoServiceSpec: v1beta1.KogitoServiceSpec{
 							Replicas: &replicas,
 						},
-					}},
+					},
 				},
 			},
 		},
@@ -67,11 +67,11 @@ func TestKogitoSourceDefaults(t *testing.T) {
 				},
 				Spec: KogitoSourceSpec{
 					ServiceAccountName: "default",
-					Template: KogitoRuntimeTemplate{KogitoRuntimeSpec: v1beta1.KogitoRuntimeSpec{
+					KogitoRuntimeSpec: v1beta1.KogitoRuntimeSpec{
 						KogitoServiceSpec: v1beta1.KogitoServiceSpec{
 							Replicas: &replicas,
 						},
-					}},
+					},
 					SourceSpec: duckv1.SourceSpec{
 						Sink: duckv1.Destination{
 							Ref: &duckv1.KReference{

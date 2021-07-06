@@ -31,9 +31,9 @@ func (s *KogitoSource) SetDefaults(ctx context.Context) {
 		s.Spec.ServiceAccountName = "default"
 	}
 
-	if s != nil && s.Spec.Template.Replicas == nil {
+	if s != nil && s.Spec.Replicas == nil {
 		replicas := int32(1)
-		s.Spec.Template.Replicas = &replicas
+		s.Spec.Replicas = &replicas
 	}
 
 	// call SetDefaults against duckv1.Destination with a context of ObjectMeta of KogitoSource.

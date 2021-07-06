@@ -65,6 +65,7 @@ func (s *KogitoSourceStatus) MarkSink(uri *apis.URL) {
 
 // MarkNoSink sets the condition that the source does not have a sink configured.
 func (s *KogitoSourceStatus) MarkNoSink(reason, messageFormat string, messageA ...interface{}) {
+	s.SinkURI = nil
 	KogitoCondSet.Manage(s).MarkFalse(KogitoConditionSinkProvided, reason, messageFormat, messageA...)
 }
 
@@ -76,7 +77,7 @@ func (s *KogitoSourceStatus) PropagateDeploymentAvailability(d *appsv1.Deploymen
 	} else {
 		// I don't know how to propagate the status well, so just give the name of the Deployment
 		// for now.
-		KogitoCondSet.Manage(s).MarkFalse(KogitoConditionDeployed, "DeploymentUnavailable", "The Deployment '%s' is unavailable.", d.Name)
+		KogitoCondSet.Manage(s).MarkFalse(KogitoConditionDeployed, "KogitoRuntimeUnavailable", "The KogitoRuntime '%s' is unavailable.", d.Name)
 	}
 }
 

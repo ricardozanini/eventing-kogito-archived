@@ -17,8 +17,6 @@ limitations under the License.
 package resources
 
 import (
-	"fmt"
-
 	"github.com/kiegroup/kogito-operator/api/v1beta1"
 
 	corev1 "k8s.io/api/core/v1"
@@ -44,13 +42,13 @@ func MakeReceiveAdapter(args *ReceiveAdapterArgs) *v1beta1.KogitoRuntime {
 	kogitoRuntime := &v1beta1.KogitoRuntime{
 		ObjectMeta: metav1.ObjectMeta{
 			Namespace: args.Source.Namespace,
-			Name:      kmeta.ChildName(fmt.Sprintf("kogitosource-%s-", args.Source.Name), string(args.Source.GetUID())),
+			Name:      kmeta.ChildName("ks-", args.Source.Name),
 			Labels:    args.Labels,
 			OwnerReferences: []metav1.OwnerReference{
 				*kmeta.NewControllerRef(args.Source),
 			},
 		},
-		Spec: args.Source.Spec.Template.KogitoRuntimeSpec,
+		Spec: args.Source.Spec.KogitoRuntimeSpec,
 	}
 	if kogitoRuntime.Spec.Replicas == nil {
 		kogitoRuntime.Spec.Replicas = &replicas
