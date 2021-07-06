@@ -1,5 +1,5 @@
 /*
-Copyright 2020 The Knative Authors
+Copyright 2021 The Knative Authors
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -24,9 +24,9 @@ import (
 	"k8s.io/client-go/discovery"
 	fakediscovery "k8s.io/client-go/discovery/fake"
 	"k8s.io/client-go/testing"
-	clientset "knative.dev/sample-source/pkg/client/clientset/versioned"
-	samplesv1alpha1 "knative.dev/sample-source/pkg/client/clientset/versioned/typed/samples/v1alpha1"
-	fakesamplesv1alpha1 "knative.dev/sample-source/pkg/client/clientset/versioned/typed/samples/v1alpha1/fake"
+	clientset "knative.dev/eventing-kogito/pkg/client/clientset/versioned"
+	kogitov1alpha1 "knative.dev/eventing-kogito/pkg/client/clientset/versioned/typed/kogito/v1alpha1"
+	fakekogitov1alpha1 "knative.dev/eventing-kogito/pkg/client/clientset/versioned/typed/kogito/v1alpha1/fake"
 )
 
 // NewSimpleClientset returns a clientset that will respond with the provided objects.
@@ -76,7 +76,7 @@ func (c *Clientset) Tracker() testing.ObjectTracker {
 
 var _ clientset.Interface = &Clientset{}
 
-// SamplesV1alpha1 retrieves the SamplesV1alpha1Client
-func (c *Clientset) SamplesV1alpha1() samplesv1alpha1.SamplesV1alpha1Interface {
-	return &fakesamplesv1alpha1.FakeSamplesV1alpha1{Fake: &c.Fake}
+// KogitoV1alpha1 retrieves the KogitoV1alpha1Client
+func (c *Clientset) KogitoV1alpha1() kogitov1alpha1.KogitoV1alpha1Interface {
+	return &fakekogitov1alpha1.FakeKogitoV1alpha1{Fake: &c.Fake}
 }

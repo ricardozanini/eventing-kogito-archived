@@ -21,7 +21,7 @@ on:
   schedule:
     - cron: '0 1 * * 1-5' # 6am Pacific, weekdays.
 
-  workflow_dispatch:      # Manual trigger.
+  workflow_dispatch: # Manual trigger.
     inputs:
       releaseFamily:
         description: 'Release? (vX.Y)'

@@ -24,15 +24,15 @@ export GO111MODULE=on
 # Yaml files to generate, and the source config dir for them.
 declare -A COMPONENTS
 COMPONENTS=(
-  ["sample.yaml"]="config"
+  ["kogito.yaml"]="config"
 )
 readonly COMPONENTS
 
 function build_release() {
    # Update release labels if this is a tagged release
   if [[ -n "${TAG}" ]]; then
-    echo "Tagged release, updating release labels to samples.knative.dev/release: \"${TAG}\""
-    LABEL_YAML_CMD=(sed -e "s|samples.knative.dev/release: devel|samples.knative.dev/release: \"${TAG}\"|")
+    echo "Tagged release, updating release labels to kogito.knative.dev/release: \"${TAG}\""
+    LABEL_YAML_CMD=(sed -e "s|kogito.knative.dev/release: devel|kogito.knative.dev/release: \"${TAG}\"|")
   else
     echo "Untagged release, will NOT update release labels"
     LABEL_YAML_CMD=(cat)
@@ -41,7 +41,7 @@ function build_release() {
   local all_yamls=()
   for yaml in "${!COMPONENTS[@]}"; do
     local config="${COMPONENTS[${yaml}]}"
-    echo "Building Knative Sample Source - ${config}"
+    echo "Building Knative Kogito Source - ${config}"
     # TODO(chizhg): reenable --strict mode after https://github.com/knative/test-infra/issues/1262 is fixed.
     ko resolve ${KO_FLAGS} -f ${config}/ | "${LABEL_YAML_CMD[@]}" > ${yaml}
     all_yamls+=(${yaml})

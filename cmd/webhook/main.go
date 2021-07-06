@@ -34,17 +34,17 @@ import (
 	"knative.dev/pkg/webhook/resourcesemantics/defaulting"
 	"knative.dev/pkg/webhook/resourcesemantics/validation"
 
-	"knative.dev/sample-source/pkg/apis/samples/v1alpha1"
+	"knative.dev/eventing-kogito/pkg/apis/kogito/v1alpha1"
 )
 
 var types = map[schema.GroupVersionKind]resourcesemantics.GenericCRD{
 	// List the types to validate
-	v1alpha1.SchemeGroupVersion.WithKind("SampleSource"): &v1alpha1.SampleSource{},
+	v1alpha1.SchemeGroupVersion.WithKind("KogitoSource"): &v1alpha1.KogitoSource{},
 }
 
 var callbacks = map[schema.GroupVersionKind]validation.Callback{}
 
-const admissionWebhookName = "sample-source-webhook"
+const admissionWebhookName = "kogito-source-webhook"
 
 // NewDefaultingAdmissionController sets up mutating webhook.
 func NewDefaultingAdmissionController(ctx context.Context, cmw configmap.Watcher) *controller.Impl {

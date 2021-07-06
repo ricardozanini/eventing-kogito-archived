@@ -1,5 +1,5 @@
 /*
-Copyright 2020 The Knative Authors
+Copyright 2021 The Knative Authors
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -21,11 +21,11 @@ package fake
 import (
 	context "context"
 
+	externalversions "knative.dev/eventing-kogito/pkg/client/informers/externalversions"
+	fake "knative.dev/eventing-kogito/pkg/client/injection/client/fake"
+	factory "knative.dev/eventing-kogito/pkg/client/injection/informers/factory"
 	controller "knative.dev/pkg/controller"
 	injection "knative.dev/pkg/injection"
-	externalversions "knative.dev/sample-source/pkg/client/informers/externalversions"
-	fake "knative.dev/sample-source/pkg/client/injection/client/fake"
-	factory "knative.dev/sample-source/pkg/client/injection/informers/factory"
 )
 
 var Get = factory.Get

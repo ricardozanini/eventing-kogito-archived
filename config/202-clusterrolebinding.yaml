@@ -15,47 +15,47 @@
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
-  name: sample-source-controller-rolebinding
+  name: kogito-source-controller-rolebinding
   labels:
-    samples.knative.dev/release: devel
+    kogito.knative.dev/release: devel
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
-  name: sample-source-controller
-subjects:
-- kind: ServiceAccount
-  name: sample-source-controller
-  namespace: knative-samples
-
----
-
-apiVersion: rbac.authorization.k8s.io/v1
-kind: ClusterRoleBinding
-metadata:
-  name: sample-source-webhook-rolebinding
-  labels:
-    samples.knative.dev/release: devel
-roleRef:
-  apiGroup: rbac.authorization.k8s.io
-  kind: ClusterRole
-  name: sample-source-webhook
+  name: kogito-source-controller
 subjects:
   - kind: ServiceAccount
-    name: sample-source-webhook
-    namespace: knative-samples
+    name: kogito-source-controller
+    namespace: knative-kogito
 
 ---
 
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
-  name: sample-source-controller-addressable-resolver
+  name: kogito-source-webhook-rolebinding
   labels:
-    samples.knative.dev/release: devel
+    kogito.knative.dev/release: devel
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: kogito-source-webhook
 subjects:
-- kind: ServiceAccount
-  name: sample-source-controller
-  namespace: knative-samples
+  - kind: ServiceAccount
+    name: kogito-source-webhook
+    namespace: knative-kogito
+
+---
+
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: kogito-source-controller-addressable-resolver
+  labels:
+    kogito.knative.dev/release: devel
+subjects:
+  - kind: ServiceAccount
+    name: kogito-source-controller
+    namespace: knative-kogito
 # An aggregated ClusterRole for all Addressable CRDs.
 # Ref: https://knative.dev/eventing/blob/master/config/200-addressable-resolvers-clusterrole.yaml
 roleRef:

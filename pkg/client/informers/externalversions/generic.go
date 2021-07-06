@@ -1,5 +1,5 @@
 /*
-Copyright 2020 The Knative Authors
+Copyright 2021 The Knative Authors
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -23,7 +23,7 @@ import (
 
 	schema "k8s.io/apimachinery/pkg/runtime/schema"
 	cache "k8s.io/client-go/tools/cache"
-	v1alpha1 "knative.dev/sample-source/pkg/apis/samples/v1alpha1"
+	v1alpha1 "knative.dev/eventing-kogito/pkg/apis/kogito/v1alpha1"
 )
 
 // GenericInformer is type of SharedIndexInformer which will locate and delegate to other
@@ -52,9 +52,9 @@ func (f *genericInformer) Lister() cache.GenericLister {
 // TODO extend this to unknown resources with a client pool
 func (f *sharedInformerFactory) ForResource(resource schema.GroupVersionResource) (GenericInformer, error) {
 	switch resource {
-	// Group=samples.knative.dev, Version=v1alpha1
-	case v1alpha1.SchemeGroupVersion.WithResource("samplesources"):
-		return &genericInformer{resource: resource.GroupResource(), informer: f.Samples().V1alpha1().SampleSources().Informer()}, nil
+	// Group=kogito.knative.dev, Version=v1alpha1
+	case v1alpha1.SchemeGroupVersion.WithResource("kogitosources"):
+		return &genericInformer{resource: resource.GroupResource(), informer: f.Kogito().V1alpha1().KogitoSources().Informer()}, nil
 
 	}
 

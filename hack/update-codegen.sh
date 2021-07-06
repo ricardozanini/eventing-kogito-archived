@@ -25,6 +25,18 @@ export GOFLAGS=-mod=
 
 echo "=== Update Codegen for ${MODULE_NAME}"
 
+(
+  group "Kogito Codegen"
+  # External Kogito API
+  OUTPUT_PKG="knative.dev/eventing-kogito/pkg/kogito/injection" \
+    VERSIONED_CLIENTSET_PKG="github.com/kiegroup/kogito-operator/client/clientset/versioned" \
+    EXTERNAL_INFORMER_PKG="github.com/kiegroup/kogito-operator/client/informers/externalversions" \
+    ${KNATIVE_CODEGEN_PKG}/hack/generate-knative.sh "injection" \
+    knative.dev/eventing-kogito/pkg/client/kogito github.com/kiegroup/kogito-operator/api \
+    ":v1beta1" \
+    --go-header-file ${REPO_ROOT_DIR}/hack/boilerplate/boilerplate.go.txt
+)
+
 group "Kubernetes Codegen"
 
 # generate the code with:
@@ -32,16 +44,16 @@ group "Kubernetes Codegen"
 #                  k8s.io/kubernetes. The output-base is needed for the generators to output into the vendor dir
 #                  instead of the $GOPATH directly. For normal projects this can be dropped.
 ${CODEGEN_PKG}/generate-groups.sh "deepcopy,client,informer,lister" \
-  knative.dev/sample-source/pkg/client knative.dev/sample-source/pkg/apis \
-  "samples:v1alpha1" \
+  knative.dev/eventing-kogito/pkg/client knative.dev/eventing-kogito/pkg/apis \
+  "kogito:v1alpha1" \
   --go-header-file ${REPO_ROOT_DIR}/hack/boilerplate/boilerplate.go.txt
 
 group "Knative Codegen"
 
 # Knative Injection
 ${KNATIVE_CODEGEN_PKG}/hack/generate-knative.sh "injection" \
-  knative.dev/sample-source/pkg/client knative.dev/sample-source/pkg/apis \
-  "samples:v1alpha1" \
+  knative.dev/eventing-kogito/pkg/client knative.dev/eventing-kogito/pkg/apis \
+  "kogito:v1alpha1" \
   --go-header-file ${REPO_ROOT_DIR}/hack/boilerplate/boilerplate.go.txt
 
 group "Update deps post-codegen"

@@ -15,65 +15,63 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: sample-source-controller
-  namespace: knative-samples
+  name: kogito-source-controller
+  namespace: knative-kogito
   labels:
-    samples.knative.dev/release: devel
+    kogito.knative.dev/release: devel
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: sample-source-controller
+      app: kogito-source-controller
   template:
     metadata:
       labels:
-        app: sample-source-controller
-        samples.knative.dev/release: devel
+        app: kogito-source-controller
+        kogito.knative.dev/release: devel
     spec:
       # To avoid node becoming SPOF, spread our replicas to different nodes.
       affinity:
         podAntiAffinity:
           preferredDuringSchedulingIgnoredDuringExecution:
-          - podAffinityTerm:
-              labelSelector:
-                matchLabels:
-                  app: sample-source-controller
-              topologyKey: kubernetes.io/hostname
-            weight: 100
+            - podAffinityTerm:
+                labelSelector:
+                  matchLabels:
+                    app: kogito-source-controller
+                topologyKey: kubernetes.io/hostname
+              weight: 100
 
-      serviceAccountName: sample-source-controller
+      serviceAccountName: kogito-source-controller
 
       containers:
-      - name: controller
-        terminationMessagePolicy: FallbackToLogsOnError
-        image: ko://knative.dev/sample-source/cmd/controller
+        - name: controller
+          terminationMessagePolicy: FallbackToLogsOnError
+          image: ko://knative.dev/eventing-kogito/cmd/controller
 
-        resources:
-          requests:
-            cpu: 100m
-            memory: 100Mi
+          resources:
+            requests:
+              cpu: 100m
+              memory: 100Mi
 
-        env:
-          - name: SYSTEM_NAMESPACE
-            valueFrom:
-              fieldRef:
-                fieldPath: metadata.namespace
-          - name: CONFIG_LOGGING_NAME
-            value: config-logging
-          - name: CONFIG_OBSERVABILITY_NAME
-            value: config-observability
-          - name: METRICS_DOMAIN
-            value: knative.dev/sources
-          - name: SAMPLE_SOURCE_RA_IMAGE
-            value: ko://knative.dev/sample-source/cmd/receive_adapter
-          - name: POD_NAME
-            valueFrom:
-              fieldRef:
-                fieldPath: metadata.name
+          env:
+            - name: SYSTEM_NAMESPACE
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.namespace
+            - name: CONFIG_LOGGING_NAME
+              value: config-logging
+            - name: CONFIG_OBSERVABILITY_NAME
+              value: config-observability
+            - name: METRICS_DOMAIN
+              value: knative.dev/sources
+            - name: POD_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
 
-        securityContext:
-          allowPrivilegeEscalation: false
+          securityContext:
+            allowPrivilegeEscalation: false
 
-        ports:
-          - name: metrics
-            containerPort: 9090
+          ports:
+            - name: metrics
+              containerPort: 9090
