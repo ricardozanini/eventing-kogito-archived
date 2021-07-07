@@ -7,7 +7,7 @@ Knative Eventing `kogito-source` is a source of CloudEvents provided
 by [Kogito services](https://docs.jboss.org/kogito/release/latest/html_single/#con-kogito-automation_kogito-docs). Any
 kind of Kogito service (rules, decisions, processes or serverless workflows) can produce events to the platform. Please
 visit [our documentation](https://docs.jboss.org/kogito/release/latest/html_single/#proc-knative-eventing-process-services_kogito-developing-process-services)
-to understand how to create a Kogito application able produce CloudEvents.
+to understand how to create a Kogito application able to produce CloudEvents.
 
 To learn more about Knative, please visit the
 [Knative docs](https://github.com/knative/docs) repository.
@@ -24,7 +24,7 @@ source the same way you would deploy any Kogito service.
 
 ![Knative Kogito Source Role](./docs/knative-kogito-source-role.png)
 
-The Kogito Source will bind the deployed Kogito Runtime service to any addressable resource in your cluster. All the
+The Kogito Source will bind the deployed Kogito Runtime service to any [addressable](https://github.com/knative/specs/blob/main/specs/eventing/interfaces.md#addressable) resource in your cluster. All the
 CloudEvents produced by the Kogito service will sink to the specified destination.
 
 > Please note that the Kogito Source is under active development. The images and CRDs are **not** final and can be changed any time.
