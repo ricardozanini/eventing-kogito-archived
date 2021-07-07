@@ -13,6 +13,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 */
+
 /**
 TODO: We are unable to generate the Informers correctly for Kogito Operator since its structure follows kubebuilder: api/{version}, instead of pkg/apis/{group}/{version}. Might need to change that there to have the injection being generated correctly.
 */
