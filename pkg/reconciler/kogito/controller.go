@@ -36,7 +36,7 @@ import (
 	kogitosourceinformer "knative.dev/eventing-kogito/pkg/client/injection/informers/kogito/v1alpha1/kogitosource"
 	"knative.dev/eventing-kogito/pkg/client/injection/reconciler/kogito/v1alpha1/kogitosource"
 	kogitoclient "knative.dev/eventing-kogito/pkg/kogito/injection/client"
-	kogitoruntimeinformer "knative.dev/eventing-kogito/pkg/kogito/injection/informers/factory"
+	kogitoruntimeinformer "knative.dev/eventing-kogito/pkg/kogito/notgen/injection/informers/app/v1beta1/kogitoruntimes"
 	kubeclient "knative.dev/pkg/client/injection/kube/client"
 )
 
@@ -66,8 +66,7 @@ func NewController(
 
 	kogitoSourceInformer.Informer().AddEventHandler(controller.HandleAll(impl.Enqueue))
 
-	// TODO: We are unable to generate the Informers correctly for Kogito Operator since its structure follows kubebuilder: api/{version}, instead of pkg/apis/{group}/{version}. Might need to change that there to have the injection being generated correctly.
-	kogitoRuntimeInformer.App().V1beta1().KogitoRuntimes().Informer().AddEventHandler(cache.FilteringResourceEventHandler{
+	kogitoRuntimeInformer.Informer().AddEventHandler(cache.FilteringResourceEventHandler{
 		FilterFunc: controller.FilterControllerGK(v1alpha1.Kind("KogitoSource")),
 		Handler:    controller.HandleAll(impl.EnqueueControllerOf),
 	})
