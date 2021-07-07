@@ -485,7 +485,7 @@ spec:
       containers:
         - name: controller
           terminationMessagePolicy: FallbackToLogsOnError
-          image: quay.io/ricardozanini/controller@sha256:88d4450d5b513171521a8f74e40bb5ef5757947fef3036207c96dca3f78cf4e7
+          image: quay.io/ricardozanini/controller@sha256:1c6ab46e00df309846d0fea5371809fe51edf5aa868f78fe5bfac7a3eb8201ec
           resources:
             requests:
               cpu: 100m
@@ -632,7 +632,7 @@ spec:
       containers:
         - name: kogitosource-webhook
           terminationMessagePolicy: FallbackToLogsOnError
-          image: quay.io/ricardozanini/webhook@sha256:1102c9611aaf91dc7a5fd126e16d7eedbdc8728ab0ed079700d6978da236f931
+          image: quay.io/ricardozanini/webhook@sha256:ca963a029abdea6ac48a89eebeab682486697780c4cdb3d195406f44001468bc
           env:
             - name: SYSTEM_NAMESPACE
               valueFrom:
