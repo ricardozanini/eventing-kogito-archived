@@ -26,7 +26,7 @@ public class TelegramCESandboxRoute extends EndpointRouteBuilder {
                 .to("string-template:templates/TelegramMessage.tm")
                 // uncomment here to use send the message :)
                 //.to("telegram:bots?authorizationToken={{authorizationToken}}")
-                //.marshal().json()
+                .marshal().json()
                 // comment here to not log anymore
                 .to(log("info").showBodyType(false).showBody(true).showExchangePattern(false));
     }

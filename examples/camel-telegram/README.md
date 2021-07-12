@@ -1,54 +1,89 @@
-# camel-telegram Project
+# Camel-K Telegram Notification Example
 
-This project uses Quarkus, the Supersonic Subatomic Java Framework.
+In this example you will deploy a Camel-K Service to deliver the Kogito Source Events to a Telegram chat. This is how it
+works in the cluster:
 
-If you want to learn more about Quarkus, please visit its website: https://quarkus.io/ .
+![](example-architecture.png)
 
-## Running the application in dev mode
+## Prerequisites
 
-You can run your application in dev mode that enables live coding using:
-```shell script
-./mvnw compile quarkus:dev
+Before starting, make sure that you have installed the prereqs defined in the [main README](../../README.md), and then:
+
+1. [Install Camel-K](https://camel.apache.org/camel-k/latest/installation/installation.html) in your cluster
+2. [Create a bot and grab an API Token](https://core.telegram.org/bots#3-how-do-i-create-a-bot) from the
+   Telegram [Bot Father](https://telegram.me/botfather)
+3. Start a conversation with your bot and go to [this website](https://codesandbox.io/s/get-telegram-chat-id-q3qkk) and
+   grab the chat id
+
+## Testing the Camel Route locally
+
+To make things easier for you, in this directory you will find a Quarkus Camel project that you can run locally in order
+to test the route before deploying it on
+Kubernetes. [Follow the instructions in the project's README file](quarkus/README.md) to learn how to run it locally.
+
+## Deploying on Kubernetes
+
+The first thing you will deploy is the Kogito Source to produce events to your Telegram chat. You can use
+the [Order Processing example](../order-processing-workflow.yaml):
+
+```shell
+REPO=https://github.com/ricardozanini/eventing-kogito/blob/main/examples
+
+kubectl apply -f ${REPO}/sinks/inmemory-channel.yaml
+kubectl apply -f ${REPO}/order-processing-workflow.yaml
 ```
 
-> **_NOTE:_**  Quarkus now ships with a Dev UI, which is available in dev mode only at http://localhost:8080/q/dev/.
+To check if everything is running, run:
 
-## Packaging and running the application
-
-The application can be packaged using:
-```shell script
-./mvnw package
-```
-It produces the `quarkus-run.jar` file in the `target/quarkus-app/` directory.
-Be aware that it’s not an _über-jar_ as the dependencies are copied into the `target/quarkus-app/lib/` directory.
-
-If you want to build an _über-jar_, execute the following command:
-```shell script
-./mvnw package -Dquarkus.package.type=uber-jar
+```shell
+kubectl get kogitosource
+NAME                      READY   REASON   SINK                                                        AGE
+kogito-order-processing   True             http://kogito-channel-kn-channel.kogito.svc.cluster.local   140m
 ```
 
-The application is now runnable using `java -jar target/quarkus-app/quarkus-run.jar`.
+Then you can deploy the Camel-K integration with:
 
-## Creating a native executable
+```shell
+AUTH_TOKEN=<grab one from the bot father>
+CHAT_ID=<your chat ID>
+REPO=https://github.com/ricardozanini/eventing-kogito/blob/main/examples
 
-You can create a native executable using: 
-```shell script
-./mvnw package -Pnative
+kamel run 
+      ${REPO}/camel-telegram/TelegramCloudEventNotification.java \
+      --resource ${REPO}/camel-telegram/quarkus/src/main/resources/templates/TelegramMessage.tm \
+      --name telegram-notification \
+      --property authorizationToken=${AUTH_TOKEN} \
+      --property defaultChatId=${CHAT_ID}
 ```
 
-Or, if you don't have GraalVM installed, you can run the native executable build in a container using: 
-```shell script
-./mvnw package -Pnative -Dquarkus.native.container-build=true
+If you are on minikube, you can expose the Kogito Service deployed by the Knative Source to send CloudEvents messages directly
+to it with:
+
+```shell
+kubectl expose deployment ks-kogito-order-processing --type=NodePort --port=8080 --name=order-service-exposed
 ```
 
-You can then execute your native executable with: `./target/camel-telegram-1.0.0-SNAPSHOT-runner`
+Grab the URL with:
 
-If you want to learn more about building native executables, please consult https://quarkus.io/guides/maven-tooling.html.
+```shell
+minikube service order-service-exposed --url
+```
 
-## Provided Code
+Send an Order event like this:
 
-### RESTEasy JAX-RS
+```json
+{
+  "id": "f0643c68-609c-48aa-a820-5df423fa4fe0",
+  "country": "US",
+  "total": 10000,
+  "description": "iPhone 12"
+}
+```
 
-Easily start your RESTful Web Services
+You should see the messages in your phone:
 
-[Related guide section...](https://quarkus.io/guides/getting-started#the-jax-rs-resources)
+![](telegram-chat.png)
+
+Take a look at the
+original [Order Processing project](https://github.com/kiegroup/kogito-examples/tree/stable/serverless-workflow-order-processing)
+for more examples.
