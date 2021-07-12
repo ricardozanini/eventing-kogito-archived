@@ -48,7 +48,7 @@ AUTH_TOKEN=<grab one from the bot father>
 CHAT_ID=<your chat ID>
 REPO=https://github.com/ricardozanini/eventing-kogito/blob/main/examples
 
-kamel run 
+kamel run \
       ${REPO}/camel-telegram/TelegramCloudEventNotification.java \
       --resource ${REPO}/camel-telegram/quarkus/src/main/resources/templates/TelegramMessage.tm \
       --name telegram-notification \
@@ -56,8 +56,8 @@ kamel run
       --property defaultChatId=${CHAT_ID}
 ```
 
-If you are on minikube, you can expose the Kogito Service deployed by the Knative Source to send CloudEvents messages directly
-to it with:
+If you are on minikube, you can expose the Kogito Service deployed by the Knative Source to send CloudEvents messages
+directly to it with:
 
 ```shell
 kubectl expose deployment ks-kogito-order-processing --type=NodePort --port=8080 --name=order-service-exposed
