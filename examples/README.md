@@ -46,3 +46,7 @@ Extensions,
 Data,
   {"id":"f0643c68-609c-48aa-a820-5df423fa4fe0","country":"Italy","total":10000,"description":"iPhone 12","shipping":"international","fraudEvaluation":true}
 ```
+
+## Telegram CloudEvents Notification Bot
+
+Please visit the [camel-telegram](./camel-telegram) directory for more details.
