@@ -7,3 +7,4 @@ bazel-*
 .history
 tmp/
 licenses/
+*.iml
