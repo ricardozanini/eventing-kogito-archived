@@ -26,3 +26,5 @@ released version.
 | :triangular_flag_on_post: | Deploy Kogito Source as a Serverless Workflow Kubernetes Resource | |
 | :triangular_flag_on_post: | Implement Knative Addressable Interface | |
 | :triangular_flag_on_post: | Add Kogito Knative Sink support | | 
+| :triangular_flag_on_post: | Integration with Knative Event Registry | | 
+| :triangular_flag_on_post: | Add CloudEvent schema location to Kogito service status | | 
