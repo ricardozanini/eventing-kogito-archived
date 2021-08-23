@@ -24,8 +24,9 @@ source the same way you would deploy any Kogito service.
 
 ![Knative Kogito Source Role](./docs/knative-kogito-source-role.png)
 
-The Kogito Source will bind the deployed Kogito Runtime service to any [addressable](https://github.com/knative/specs/blob/main/specs/eventing/interfaces.md#addressable) resource in your cluster. All the
-CloudEvents produced by the Kogito service will sink to the specified destination.
+The Kogito Source will bind the deployed Kogito Runtime service to
+any [addressable](https://github.com/knative/specs/blob/main/specs/eventing/interfaces.md#addressable) resource in your
+cluster. All the CloudEvents produced by the Kogito service will sink to the specified destination.
 
 > Please note that the Kogito Source is under active development. The images and CRDs are **not** final and can be changed any time.
 
@@ -59,3 +60,7 @@ kogito-source-webhook-54b7c87ff9-5r46h      1/1     Running   0          127m
 ```
 
 Now you can start deploying the [examples](./examples)!
+
+## Roadmap
+
+To learn more about future features, check our [Roadmap](ROADMAP.md).
